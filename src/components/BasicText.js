@@ -23,7 +23,7 @@ export const BasicText = (props) => {
 
 const styles = {
     textStyle: {
-        color: '#333',
+        color: '#3e3e3e',
     },
     h1: {
         fontSize: 16,

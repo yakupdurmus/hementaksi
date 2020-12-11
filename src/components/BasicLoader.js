@@ -6,7 +6,7 @@ export const BasicLoader = (props) => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Spinner type="Plane" />
+            <Spinner color="#3e3e3e" type="Plane" />
         </View>
     )
 }
