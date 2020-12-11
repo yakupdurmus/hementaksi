@@ -3,14 +3,15 @@ import { View, StyleSheet, Image } from 'react-native'
 import { BasicButton, BasicInput, BasicText } from '../components';
 
 
-const Home = (props) => {
+const WordLearn = (props) => {
 
-    const [wordCount, setWordCount] = useState(15)
+   
 
     return (
         <>
-            <View style={styles.containerStyle} />
-
+            <View style={styles.containerStyle}>
+              
+            </View>
         </>
     )
 };
@@ -27,4 +28,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default React.memo(Home);
+export default React.memo(WordLearn);

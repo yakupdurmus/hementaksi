@@ -9,7 +9,8 @@ const Login = (props) => {
         setLock(true);
         setTimeout(() => {
             if (model.email == "admin" && model.password == "1234") {
-                props.navigation.navigate('Home')
+                //TODO 
+                alert('Bakılacak...')
             } else {
                 alert("Hatalı şifre")
             }
