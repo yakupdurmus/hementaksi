@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info'
 
 
 //#region CONSTANTS
@@ -64,3 +65,4 @@ export const shuffle = (array) => {
 let user
 export const getUser = () => user
 export const setUser = (_user) => user = { ...user, ..._user }
+export const appVersion = DeviceInfo.getVersion()
