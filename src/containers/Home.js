@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native'
-import { BasicButton, BasicInput, BasicText, BasicIcon } from '../components';
+import React from 'react';
+import { View, StyleSheet } from 'react-native'
+import { BasicButton, BasicText, BasicIcon } from '../components'
 
 const Home = (props) => {
 
     const { navigation } = props
+    const onPress = () => navigation.navigate("WordSelect")
 
     return (
         <View style={styles.containerStyle} >
             <BasicIcon style={styles.iconStyle} type="Feather" name="book-open" />
             <BasicText style={styles.textStyle}>Kelimeler öğrenilmeye hazır.</BasicText>
-            <BasicButton danger> Hemen öğrenmeye başla!</BasicButton>
+            <BasicButton danger onPress={onPress}> Hemen öğrenmeye başla!</BasicButton>
         </View>
     )
 };
@@ -29,8 +30,8 @@ const styles = StyleSheet.create({
     iconStyle: {
         fontSize: 90
     },
-    textStyle:{
-        marginBottom:200,
+    textStyle: {
+        marginBottom: 200,
     }
 })
 

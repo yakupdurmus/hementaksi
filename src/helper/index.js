@@ -40,3 +40,8 @@ export const wordCountRegex = (str) => {
     let re = /^(?:[23456789]|1[012345]?)$/;
     return re.test(str);
 }
+
+//Basic Store
+let user
+export const getUser = () => user
+export const setUser = (_user) => user = { ...user, ..._user }

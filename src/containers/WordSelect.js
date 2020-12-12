@@ -1,26 +1,51 @@
-import React, { useState, PureComponent } from 'react';
+import React, { useState,useEffect, PureComponent } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView, Text, Button, Dimensions } from 'react-native'
 import * as Progress from 'react-native-progress';
 import { BasicText } from '../components';
+import { getUser } from '../helper'
+import Tts from 'react-native-tts';
+import LottieView from 'lottie-react-native';
+
 
 let selectedWord = [];
-const WordSelect = ({ route, navigation }) => {
+const WordSelect = (props) => {
 
-    const { wordCount } = route.params
+    const { route, navigation } = props
+    const WIDTH = Dimensions.get('window').width
     const [index, setIndex] = useState(0)
+    const { keywordCount } = getUser()
+
+    useEffect(() => {
+        
+       if(selectedWord.length>4){
+           setTimeout(()=>{
+            navigation.navigate('WordLearn')
+           },1500)
+       }
+    }, [])
 
     const onPress = (type) => {
-        if (type == "yes") {
-            selectedWord.push(mock[index])
-        } else {
 
-        }
-        if (selectedWord.length == 5) {
+        if (selectedWord.length > 4) {
             navigation.navigate('WordLearn')
+            return;
         }
+
+        if (type == "yes") {
+            Tts.speak(mock[index].en);
+            selectedWord.push(mock[index])
+        }
+
         setIndex((index + 1) % mock.length)
+
+        if (selectedWord.length > 4) {
+            setTimeout(() => {
+                navigation.navigate('WordLearn')
+            }, 1500);
+        }
     }
-    const width = Dimensions.get('window').width
+
+    if (selectedWord.length > 4) return <View style={styles.successStyle}><LottieView source={require('../assets/success.json')} loop={false} autoPlay /></View>
 
     return (
         <>
@@ -45,8 +70,8 @@ const WordSelect = ({ route, navigation }) => {
                             style={styles.buttonImageStyle} />
                     </TouchableOpacity>
                 </View>
-                <Text>{selectedWord.length + 1} / 5</Text>
-                <Progress.Bar progress={(selectedWord.length + 1) / 5} width={width * .9} />
+                <BasicText>{selectedWord.length} / 5</BasicText>
+                <Progress.Bar progress={(selectedWord.length) / 5} width={WIDTH * .9} />
 
             </View>
         </>
@@ -59,7 +84,7 @@ const WordSelect = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     containerStyle: {
         padding: 20,
-        flex: 1
+        flex: 1,
     },
     imageStyle: { width: '100%', height: 200, borderRadius: 10, marginTop: '10%' },
     textContent: { flex: 1, alignItems: 'center', padding: 20, paddingTop: 50 },
@@ -67,7 +92,8 @@ const styles = StyleSheet.create({
     secondText: { marginTop: 20, fontSize: 25 },
     buttonContent: { position: 'absolute', width: '100%', bottom: 30, left: 20, height: 100, flexDirection: 'row' },
     buttonStyle: { flex: 1, height: '100%', justifyContent: 'center', alignItems: 'center' },
-    buttonImageStyle: { width: 60, height: 60 }
+    buttonImageStyle: { width: 60, height: 60 },
+    successStyle:{flex:1,backgroundColor:'#fff'}
 
 })
 

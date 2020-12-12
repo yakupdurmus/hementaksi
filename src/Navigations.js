@@ -13,7 +13,7 @@ import Settings from './containers/Settings'
 import WordSelect from './containers/WordSelect'
 import WordLearn from './containers/WordLearn'
 import FirstLaunch from './containers/FirstLaunch'
-import { getStoreValue, KEY_WORDCOUNT } from './helper';
+import { getStoreValue, KEY_WORDCOUNT, setUser } from './helper';
 import { BasicLoader } from './components';
 
 const StackApp = createStackNavigator();
@@ -30,6 +30,7 @@ const Navigations = () => {
 
     getStoreValue(KEY_WORDCOUNT).then(value => {
       if (value) {
+        setUser({ keywordCount: value });
         setInitila("Home")
       }
       setTimeout(() => {
@@ -43,9 +44,9 @@ const Navigations = () => {
   const HomeRender = () => {
     return (
       <StackHome.Navigator initialRouteName={"Home"}>
-        <StackHome.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <StackHome.Screen name="WordLearn" component={WordLearn} />
-        <StackHome.Screen name="WordSelect" component={WordSelect} />
+        <StackHome.Screen name="Home" component={Home} options={{ title: "Önemli olan süreklilik" }}/>
+        <StackHome.Screen name="WordLearn" component={WordLearn} options={{ title: "Öğren" }} />
+        <StackHome.Screen name="WordSelect" component={WordSelect} options={{ title: "Kelime Seç" }} />
       </StackHome.Navigator>
     )
   }
@@ -68,7 +69,7 @@ const Navigations = () => {
     <NavigationContainer>
       <StackApp.Navigator initialRouteName={initial} >
         <StackApp.Screen name="FirstLaunch" component={FirstLaunch} options={{ headerShown: false }} />
-        <StackApp.Screen name="Home" component={TabRender} options={{ title: "Önemli olan süreklilik" }} />
+        <StackApp.Screen name="Home" component={TabRender} options={{ headerShown: false }} /> 
       </StackApp.Navigator>
     </NavigationContainer>
   )
