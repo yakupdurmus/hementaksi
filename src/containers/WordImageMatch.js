@@ -1,64 +1,33 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-
+import {View,StyleSheet, Image} from 'react-native';
 import { DraxProvider, DraxView } from 'react-native-drax';
 import { useState } from 'react/cjs/react.development';
 import { BasicText } from '../components';
-import LottieView from 'lottie-react-native';
 import Tts from 'react-native-tts';
 
-const WordLearn = (props) => {
+const WordImageMatch = (props) => {
 
     const { navigation, route } = props
     const { selectedWord } = route.params
     const [index, setIndex] = useState(0);
+    const [pass, setPass] = React.useState([]);
+    const [learn, setLearn] = React.useState([]);
 
-
-    const onReceiveDragDrop = (type) => {
+    const onReceiveDragDrop = (type, payload) => {
 
         if (type == "LEARN") {
-            selectedWord[index].learn = true
-        } else {
-            selectedWord[index].learn = false
-        }
+
+        } 
 
         Tts.speak(selectedWord[index].en);
-        const nextIndex = getNextIndex(index)
-        if (nextIndex == -1) {
-            setIndex(-1)
-            nextPage(1500)
-            return
+        if (index + 1 > 4) {
+
         }
-        setIndex(nextIndex)
-    }
-
-    const getNextIndex = (currentIndex) => {
-
-        const isNextPage = selectedWord.filter(item => item.learn == true).length > 4
-        if (isNextPage) return -1
-
-        for (let i = currentIndex + 1; selectedWord.length > i; i++) {
-            let item = selectedWord[i]
-            if (!item.learn) return i
-        }
-
-        for (let i = 0; currentIndex + 1 > i; i++) {
-            let item = selectedWord[i]
-            if (!item.learn) return i
-        }
+        setIndex((index + 1) % 5)
 
     }
 
-    const nextPage = (animationTime = 1) => {
-
-        setTimeout(() => {
-            navigation.navigate('WordImageMatch', { selectedWord })
-        }, animationTime)
-
-    }
-
-    if (index == -1) return <View style={{ flex: 1, backgroundColor: '#fff' }}><LottieView source={require('../assets/success.json')} loop={false} autoPlay /></View>
-
+    return (<View></View>)
     return (
         <DraxProvider>
             <View style={styles.draggableContent}>
@@ -83,9 +52,15 @@ const WordLearn = (props) => {
                     style={[styles.centeredContent, styles.receivingZone]}
                     receivingStyle={styles.receivingPass}
                     renderContent={() => {
-                        return <BasicText h1>ATLA</BasicText>
+                        return <BasicText h1>YENİ SAYFA</BasicText>
                     }}
-                    onReceiveDragDrop={(event) => { onReceiveDragDrop("PASS") }}
+                    onReceiveDragDrop={(event) => {
+                        setPass([
+                            ...pass,
+                            event.dragged.payload
+                        ]);
+                        onReceiveDragDrop("PASS", event.dragged.payload)
+                    }}
                 />
                 <DraxView
                     style={[styles.centeredContent, styles.receivingZone]}
@@ -93,7 +68,13 @@ const WordLearn = (props) => {
                     renderContent={() => {
                         return <BasicText h1>ÖĞRENDİM</BasicText>
                     }}
-                    onReceiveDragDrop={(event) => { onReceiveDragDrop("LEARN") }}
+                    onReceiveDragDrop={(event) => {
+                        setLearn([
+                            ...learn,
+                            event.dragged.payload
+                        ]);
+                        onReceiveDragDrop("LEARN", event.dragged.payload)
+                    }}
                 />
             </View>
         </DraxProvider>
@@ -150,4 +131,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WordLearn;
+export default WordImageMatch;
