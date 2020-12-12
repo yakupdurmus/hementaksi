@@ -18,7 +18,6 @@
     "@react-navigation/stack": "^5.12.8",
     "lottie-ios": "^3.1.8",
     "lottie-react-native": "^3.5.0",
-    "native-base": "^2.13.15",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-drax": "^0.7.2",
@@ -31,7 +30,8 @@
     "react-native-spinkit": "^1.5.1",
     "react-native-svg": "^12.1.0",
     "react-native-svg-uri": "^1.2.3",
-    "react-native-tts": "^3.2.0"
+    "react-native-tts": "^3.2.0",
+    "react-native-vector-icons": "^7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
