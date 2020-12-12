@@ -9,7 +9,7 @@ const Home = (props) => {
 
     return (
         <View style={styles.containerStyle} >
-            <BasicIcon style={styles.iconStyle} type="Feather" name="book-open" />
+            <BasicIcon style={styles.iconStyle} type="AntDesign" name="like2" />
             <BasicText style={styles.textStyle}>Kelimeler öğrenilmeye hazır.</BasicText>
             <BasicButton danger onPress={onPress}> Hemen öğrenmeye başla!</BasicButton>
         </View>
@@ -28,10 +28,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     iconStyle: {
-        fontSize: 90
+        fontSize: 90,
+        marginBottom:20,
     },
     textStyle: {
         marginBottom: 200,
+        fontSize:18
     }
 })
 

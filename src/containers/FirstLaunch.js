@@ -32,10 +32,10 @@ const FirstLaunch = (props) => {
                     keyboardShouldPersistTaps='always'
                 >
                     <View style={styles.content}>
-                        <BasicText h1>Sınav sürecinin her adımında yanındayız.</BasicText>
-                        <BasicText style={{ marginBottom: 10 }}>Günlük kaç kelime öğrenmek istersin? Merak etme uygulama içerisinden değiştirebileceksin.</BasicText>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <BasicInput
+                        <BasicText h1 style={{color:'#fff'}}>Sınav sürecinin her adımında yanındayız.</BasicText>
+                        <BasicText style={{ marginBottom: 20,color:'#fff' }}>Günlük kaç kelime öğrenmek istersin? Bu ayarı istediğin zaman uygulama içerisinden değiştirebilirsin.</BasicText>
+                        <View style={{ flexDirection: 'row', alignItems: 'center',marginBottom:20,justifyContent:'space-evenly'}}>
+                            {/* <BasicInput
                                 keyboardType="numeric"
                                 error={isErr}
                                 errorMessage="Lütfen 1-15 arasında bir sayı giriniz."
@@ -45,12 +45,25 @@ const FirstLaunch = (props) => {
                                 onChangeText={onChangeText}
                                 contentStyle={styles.inputContent}
                                 style={styles.inputStyle}
-                            />
+                            /> */}
                             <BasicButton
                                 style={styles.buttonStyle}
                                 border
-                                label="Kaydet"
-                                onPress={() => wordCountRegex(wordCount) && replaceScreen(wordCount)} />
+                                light
+                                label="5 kelime"
+                                onPress={() =>replaceScreen(5)} />
+                            <BasicButton
+                                style={styles.buttonStyle}
+                                border
+                                light
+                                label="10 kelime"
+                                onPress={() =>replaceScreen(10)} />
+                            <BasicButton
+                                style={styles.buttonStyle}
+                                border
+                                light
+                                label="15 kelime"
+                                onPress={() =>replaceScreen(15)} />
                         </View>
                     </View>
                 </KeyboardAwareScrollView>
@@ -64,19 +77,21 @@ const FirstLaunch = (props) => {
 
 const styles = StyleSheet.create({
     containerStyle: {
-        flex: 1
+        flex: 1,
+        backgroundColor:'#f7f7f7'
     },
     content: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: '#e1393a',
         padding: 10,
         flex: 1,
+        width:'100%',
         position: 'absolute',
         bottom: 0
     },
     buttonStyle: {
         marginLeft: 10,
         padding: 12,
-        backgroundColor: '#fff'
+        paddingHorizontal:20,
     },
     inputStyle: {
         backgroundColor: '#fff'

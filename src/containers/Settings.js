@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     containerStyle: {
         padding: 20,
         flex: 1,
-        backgroundColor:'blue'
+        backgroundColor:'#00b7cd'
     },
     imageStyle: { width: '100%', height: 200, borderRadius: 10, marginBottom: 10 },
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from 'native-base'
 
 import Test from './containers/Test'
 import Login from './containers/Login'
@@ -14,7 +13,7 @@ import WordSelect from './containers/WordSelect'
 import WordLearn from './containers/WordLearn'
 import FirstLaunch from './containers/FirstLaunch'
 import { getStoreValue, KEY_WORDCOUNT, setUser } from './helper';
-import { BasicLoader } from './components';
+import { BasicButton, BasicLoader, BasicIcon } from './components';
 import WordImageMatch from './containers/WordImageMatch';
 import WordTrEn from './containers/WordTrEn';
 import WordEnTr from './containers/WordEnTr';
@@ -33,7 +32,7 @@ const Navigations = () => {
   useEffect(() => {
 
     getStoreValue(KEY_WORDCOUNT).then(value => {
-      if (value) {
+      if (false) {
         setUser({ keywordCount: value });
         setInitila("Home")
       }
@@ -59,7 +58,7 @@ const Navigations = () => {
     )
   }
 
-  
+
   const TabRender = () => {
     return (
       <Tab.Navigator
@@ -69,14 +68,22 @@ const Navigations = () => {
 
             if (route.name === 'Home') {
               iconName = focused
-                ? 'person'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
-            }
+                ? 'home'
+                : 'home';
+            } 
+            else if (route.name === 'Progress') {
+              iconName = focused
+                ? 'linechart'
+                : 'linechart';
+            } 
+            else if (route.name === 'Settings') {
+              iconName = focused
+                ? 'setting'
+                : 'setting';
+            } 
 
             // You can return any component that you like here!
-            return <Icon name={iconName} size={size} color={"red"} />;
+            return <BasicIcon type="AntDesign"  name={iconName} size={size} style={{color:color}} />;
           },
         })}
         tabBarOptions={{
@@ -86,7 +93,7 @@ const Navigations = () => {
         initialRouteName={"Home"}>
         <Tab.Screen name="Home" component={HomeRender} options={{ title: "Öğren" }} />
         <Tab.Screen name="Progress" component={Progress} options={{ title: "İlerleme" }} />
-        <Tab.Screen name="Ayarlar" component={Settings} options={{ title: "Ayarlar" }} />
+        <Tab.Screen name="Settings" component={Settings} options={{ title: "Ayarlar" }} />
       </Tab.Navigator>
     )
   }
