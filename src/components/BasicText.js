@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 
 export const BasicText = (props) => {
     const {
-        h1, h2, h3, style
+        h1, h2, h3,h4, style
     } = props
     return (
         <Text
@@ -13,6 +13,7 @@ export const BasicText = (props) => {
                 h1 && styles.h1,
                 h2 && styles.h2,
                 h3 && styles.h3,
+                h4 && styles.h4,
                 style
             ]}
         >
@@ -37,6 +38,11 @@ const styles = {
     },
     h3: {
         fontSize: 24,
+        fontWeight: 'bold',
+        paddingBottom:10,
+    },
+    h4: {
+        fontSize: 44,
         fontWeight: 'bold',
         paddingBottom:10,
     }

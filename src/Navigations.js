@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { Icon } from 'native-base'
 
 import Test from './containers/Test'
 import Login from './containers/Login'
@@ -16,6 +16,9 @@ import FirstLaunch from './containers/FirstLaunch'
 import { getStoreValue, KEY_WORDCOUNT, setUser } from './helper';
 import { BasicLoader } from './components';
 import WordImageMatch from './containers/WordImageMatch';
+import WordTrEn from './containers/WordTrEn';
+import WordEnTr from './containers/WordEnTr';
+import WordStuffing from './containers/WordStuffing';
 
 const StackApp = createStackNavigator();
 const StackHome = createStackNavigator();
@@ -49,14 +52,38 @@ const Navigations = () => {
         <StackHome.Screen name="WordLearn" component={WordLearn} options={{ title: "Öğren" }} />
         <StackHome.Screen name="WordSelect" component={WordSelect} options={{ title: "Kelime Seç" }} />
         <StackHome.Screen name="WordImageMatch" component={WordImageMatch} options={{ title: "Kelime Resim Eşleştir" }} />
+        <StackHome.Screen name="WordTrEn" component={WordTrEn} options={{ title: "Türkçeden İngilizceye" }} />
+        <StackHome.Screen name="WordEnTr" component={WordEnTr} options={{ title: "İngilizceden Türkçeye" }} />
+        <StackHome.Screen name="WordStuffing" component={WordStuffing} options={{ title: "İngilizceden Türkçeye" }} />
       </StackHome.Navigator>
     )
   }
 
-
+  
   const TabRender = () => {
     return (
-      <Tab.Navigator initialRouteName={"Home"}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'person'
+                : 'ios-information-circle-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'ios-list-box' : 'ios-list';
+            }
+
+            // You can return any component that you like here!
+            return <Icon name={iconName} size={size} color={"red"} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+        initialRouteName={"Home"}>
         <Tab.Screen name="Home" component={HomeRender} options={{ title: "Öğren" }} />
         <Tab.Screen name="Progress" component={Progress} options={{ title: "İlerleme" }} />
         <Tab.Screen name="Ayarlar" component={Settings} options={{ title: "Ayarlar" }} />

@@ -5,6 +5,7 @@ import { BasicText } from './BasicText'
 export const BasicButton = (props) => {
     return (
         <TouchableOpacity
+            activeOpacity={.75}
             {...props}
             style={[
                 styles.buttonStyle,
@@ -21,7 +22,8 @@ export const BasicButton = (props) => {
                 {...props.textProps}
                 style={[
                     props.danger ? styles.danger : {},
-                    props.primary ? styles.primary : {}
+                    props.primary ? styles.primary : {},
+                    props.textStyle,
                 ]}
             >{props.children}{props.label}</BasicText>
         </TouchableOpacity>
