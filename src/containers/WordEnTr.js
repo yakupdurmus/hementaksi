@@ -34,7 +34,7 @@ const WordEnTr = (props) => {
     }
 
     const onPress = (selectWord) => {
-        Tts.speak(selectedWord[index].en);
+        Tts.speak(selectedWord[index].word);
 
         const nextIndex = index + 1
         if (nextIndex > 4) {
@@ -63,13 +63,13 @@ const WordEnTr = (props) => {
     return (
         <View style={styles.containerStyle} >
             <View style={styles.currentWordContent}>
-                <BasicText h4 style={{ color: '#fff' }}>{currentWord.en}</BasicText>
+                <BasicText h4 style={{ color: '#fff' }}>{currentWord.word}</BasicText>
             </View>
 
-            <BasicButton onPress={() => onPress(otherWord[0])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[0].tr}</BasicButton>
-            <BasicButton onPress={() => onPress(otherWord[1])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[1].tr}</BasicButton>
-            <BasicButton onPress={() => onPress(otherWord[2])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[2].tr}</BasicButton>
-            <BasicButton onPress={() => onPress(otherWord[3])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[3].tr}</BasicButton>
+            <BasicButton onPress={() => onPress(otherWord[0])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[0].kelime}</BasicButton>
+            <BasicButton onPress={() => onPress(otherWord[1])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[1].kelime}</BasicButton>
+            <BasicButton onPress={() => onPress(otherWord[2])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[2].kelime}</BasicButton>
+            <BasicButton onPress={() => onPress(otherWord[3])} primary textStyle={styles.buttonTextStyle} style={styles.buttonStyle}>{otherWord[3].kelime}</BasicButton>
 
         </View>
     )

@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native'
 import { BasicButton, BasicText, BasicIcon } from '../components'
+import { getKelimeImageList } from '../services'
+
 
 const Home = (props) => {
 
     const { navigation } = props
     const onPress = () => navigation.navigate("WordSelect")
-
     return (
         <View style={styles.containerStyle} >
             <BasicIcon style={styles.iconStyle} type="AntDesign" name="like2" />
@@ -29,11 +30,11 @@ const styles = StyleSheet.create({
     },
     iconStyle: {
         fontSize: 90,
-        marginBottom:20,
+        marginBottom: 20,
     },
     textStyle: {
         marginBottom: 200,
-        fontSize:18
+        fontSize: 18
     }
 })
 

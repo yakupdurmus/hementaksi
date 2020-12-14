@@ -22,7 +22,7 @@ const WordStuffing = (props) => {
     }, [])
 
     const word = (_index) => {
-        let arr = selectedWord[_index].en.split('')
+        let arr = selectedWord[_index].word.split('')
         arr = shuffle(arr)
         setCharacterArr(arr)
     }
@@ -32,20 +32,20 @@ const WordStuffing = (props) => {
         const stuffing = wordStuff + character
         const nextIndex = index + 1;
 
-        if (stuffing == selectedWord[index].en) {
+        if (stuffing == selectedWord[index].word) {
             if (nextIndex > 4) {
                 setIndex(-1)
                 nextPage(1500)
                 return;
             }
-            Tts.speak(selectedWord[index].en);
+            Tts.speak(selectedWord[index].word);
             setWordStuff("")
             word(nextIndex)
             setIndex(nextIndex)
             return;
         }
         const arr = wordStuff.split('')
-        if (selectedWord[index].en[arr.length] == character) {
+        if (selectedWord[index].word[arr.length] == character) {
             setWordStuff(stuffing)
         } else {
             Vibration.vibrate(1000);
@@ -70,7 +70,7 @@ const WordStuffing = (props) => {
     return (
         <View style={styles.containerStyle} >
             <View style={styles.currentWordContent}>
-                <Image source={{ uri: selectedWord[index].img }} style={styles.imageStyle} />
+                <Image source={{ uri: selectedWord[index].url }} style={styles.imageStyle} />
             </View>
             <View style={styles.wordStuffingContent}>
                 <BasicText h3 style={styles.textStyle}>{wordStuff}</BasicText>

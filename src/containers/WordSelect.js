@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
 import * as Progress from 'react-native-progress';
-import { BasicText } from '../components';
+import { BasicText, BasicLoader } from '../components';
 import { setUser } from '../helper'
 import Tts from 'react-native-tts';
 import LottieView from 'lottie-react-native';
+import { getKelimeImageList } from '../services';
 
 
 let selectedWord = [];
@@ -13,12 +14,26 @@ const WordSelect = (props) => {
     const { route, navigation } = props
     const WIDTH = Dimensions.get('window').width
     const [index, setIndex] = useState(0)
+    const [words, setWords] = useState([])
 
     useEffect(() => {
 
+        requestApi()
         nextPage(1500)
 
     }, [])
+
+    const requestApi = () => {
+        getKelimeImageList({
+            "id": 1,
+            "page": 1,
+            "count": 5
+        }).then(data => {
+            if (data.isSuccess) {
+                setWords(data.kelimeImageList)
+            }
+        })
+    }
 
 
     const nextPage = (animationTime = 1) => {
@@ -36,27 +51,29 @@ const WordSelect = (props) => {
         nextPage()
 
         if (type == "yes") {
-            Tts.speak(mock[index].en);
-            selectedWord.push(mock[index])
+            Tts.speak(words[index].word);
+            selectedWord.push(words[index])
         }
 
-        setIndex((index + 1) % mock.length)
+        setIndex((index + 1) % words.length)
 
         nextPage(1500)
     }
 
+    console.log("TEST:", words);
+    if (words.length == 0) return <BasicLoader />
     if (selectedWord.length > 4) return <View style={{ flex: 1, backgroundColor: '#fff' }}><LottieView source={require('../assets/success.json')} loop={false} autoPlay /></View>
 
     return (
         <>
             <View style={styles.containerStyle}>
                 <Image
-                    source={{ uri: mock[index].img }}
+                    source={{ uri: words[index].url }}
                     style={styles.imageStyle}
                 />
                 <View style={styles.textContent}>
-                    <BasicText style={styles.firstText}>{mock[index].en}</BasicText>
-                    <BasicText style={styles.secondText}>{mock[index].tr}</BasicText>
+                    <BasicText style={styles.firstText}>{words[index].word}</BasicText>
+                    <BasicText style={styles.secondText}>{words[index].kelime}</BasicText>
                 </View>
                 <View style={styles.buttonContent}>
                     <TouchableOpacity onPress={() => onPress('no')} style={styles.buttonStyle}>

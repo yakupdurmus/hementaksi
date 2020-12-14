@@ -32,7 +32,7 @@ const Navigations = () => {
   useEffect(() => {
 
     getStoreValue(KEY_WORDCOUNT).then(value => {
-      if (false) {
+      if (value) {
         setUser({ keywordCount: value });
         setInitila("Home")
       }

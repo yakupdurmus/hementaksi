@@ -47,7 +47,7 @@ const Settings = (props) => {
                         <RenderItem text="Sıkça Sorulan Sorular" iconType="AntDesign" iconName="questioncircleo" />
                         <RenderItem text="Geri Bildirim" rightIconType="Feather" rightIconName="external-link" iconType="FontAwesome" iconName="pencil-square-o" />
                         <RenderItem text="Uygulama Dili" iconName="language" />
-                        <RenderItem iconName="mail-outline" text="İletişim" value="info@dilegitimi.com" />
+                        <RenderItem iconName="mail-outline" text="İletişim" value="info@ydsdil.com" />
                     </View>
 
                     <RenderItem type="title" text="Premium" />

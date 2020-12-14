@@ -22,7 +22,7 @@ const WordLearn = (props) => {
             selectedWord[index].learn = false
         }
 
-        Tts.speak(selectedWord[index].en);
+        Tts.speak(selectedWord[index].word);
         const nextIndex = getNextIndex(index)
         if (nextIndex == -1) {
             setIndex(-1)
@@ -63,10 +63,10 @@ const WordLearn = (props) => {
         <DraxProvider>
             <View style={styles.draggableContent}>
                 <Image
-                    source={{ uri: selectedWord[index].img }}
+                    source={{ uri: selectedWord[index].url }}
                     style={styles.imageStyle}
                 />
-                <BasicText h2>{selectedWord[index].tr}</BasicText>
+                <BasicText h2>{selectedWord[index].kelime}</BasicText>
                 <DraxView
                     style={[styles.centeredContent, styles.draggableBox]}
                     draggingStyle={styles.dragging}
@@ -75,7 +75,7 @@ const WordLearn = (props) => {
                     dragPayload={selectedWord[index]}
                     longPressDelay={0}
                 >
-                    <BasicText h3 style={{ color: '#fff', paddingBottom: 0 }}>{selectedWord[index].en}</BasicText>
+                    <BasicText h3 style={{ color: '#fff', paddingBottom: 0 }}>{selectedWord[index].word}</BasicText>
                 </DraxView>
             </View>
             <View style={styles.container}>

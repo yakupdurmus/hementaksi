@@ -38,7 +38,7 @@ const WordLearn = (props) => {
 
 
     const onReceiveDragDrop = () => {
-        Tts.speak(selectedWord[index].en);
+        Tts.speak(selectedWord[index].word);
 
         const nextIndex = index + 1
         if (nextIndex > 4) {
@@ -71,7 +71,7 @@ const WordLearn = (props) => {
                     style={[styles.centeredContent, styles.receivingZone]}
                     receivingStyle={styles.receiving}
                     renderContent={() => {
-                        return <Image source={{ uri: otherWord[0].img }} style={styles.imageStyle} />
+                        return <Image source={{ uri: otherWord[0].url }} style={styles.imageStyle} />
                     }}
                     onReceiveDragDrop={(event) => { onReceiveDragDrop() }}
                 />
@@ -79,7 +79,7 @@ const WordLearn = (props) => {
                     style={[styles.centeredContent, styles.receivingZone]}
                     receivingStyle={styles.receiving}
                     renderContent={() => {
-                        return <Image source={{ uri: otherWord[1].img }} style={styles.imageStyle} />
+                        return <Image source={{ uri: otherWord[1].url }} style={styles.imageStyle} />
                     }}
                     onReceiveDragDrop={(event) => { onReceiveDragDrop() }}
                 />
@@ -93,7 +93,7 @@ const WordLearn = (props) => {
                     dragPayload={currentWord}
                     longPressDelay={0}
                 >
-                    <BasicText h3 style={{ color: '#fff', paddingBottom: 0 }}>{currentWord.en}</BasicText>
+                    <BasicText h3 style={{ color: '#fff', paddingBottom: 0 }}>{currentWord.word}</BasicText>
                 </DraxView>
             </View>
             <View style={styles.container}>
@@ -101,7 +101,7 @@ const WordLearn = (props) => {
                     style={[styles.centeredContent, styles.receivingZone]}
                     receivingStyle={styles.receiving}
                     renderContent={() => {
-                        return <Image source={{ uri: otherWord[2].img }} style={styles.imageStyle} />
+                        return <Image source={{ uri: otherWord[2].url }} style={styles.imageStyle} />
                     }}
                     onReceiveDragDrop={(event) => { onReceiveDragDrop() }}
                 />
@@ -109,7 +109,7 @@ const WordLearn = (props) => {
                     style={[styles.centeredContent, styles.receivingZone]}
                     receivingStyle={styles.receiving}
                     renderContent={() => {
-                        return <Image source={{ uri: otherWord[3].img }} style={styles.imageStyle} />
+                        return <Image source={{ uri: otherWord[3].url }} style={styles.imageStyle} />
                     }}
                     onReceiveDragDrop={(event) => { onReceiveDragDrop() }}
                 />
