@@ -3,7 +3,7 @@ import DeviceInfo from 'react-native-device-info'
 
 
 //#region CONSTANTS
-export const KEY_CONST = "temp";
+export const KEY_WORDCOUNT = "wordcount";
 //#endregion
 
 

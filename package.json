@@ -25,6 +25,7 @@
     "react-native-chart-kit": "^6.8.1",
     "react-native-device-info": "^7.3.1",
     "react-native-drax": "^0.7.2",
+    "react-native-geolocation-service": "^5.1.1",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-progress": "^4.1.2",
