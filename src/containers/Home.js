@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { BasicText, BasicIcon, BasicButton } from '../components'
-import Geolocation from 'react-native-geolocation-service'
-import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+// import Geolocation from 'react-native-geolocation-service'
+import Geolocation from '@react-native-community/geolocation';
+
+import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 
 import { color } from '../helper'
 const Home = () => {
@@ -29,52 +31,32 @@ const Home = () => {
     map.current?.animateToRegion(zoomedRegion);
   };
 
-  const permission = () => {
+  const permission = async () => {
     const isAndroid = Platform.OS == "android"
     const perText = isAndroid ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
-    check(perText)
-      .then((result) => {
-        switch (result) {
-          case RESULTS.UNAVAILABLE:
-            console.log('This feature is not available (on this device / in this context)');
-            return false
-            break;
-          case RESULTS.DENIED:
-            console.log('The permission has not been requested / is denied but requestable');
-            return false
-            break;
-          case RESULTS.LIMITED:
-            console.log('The permission is limited: some actions are possible');
-            return true
-            break;
-          case RESULTS.GRANTED:
-            console.log('The permission is granted');
-            return true
-            break;
-          case RESULTS.BLOCKED:
-            console.log('The permission is denied and not requestable anymore');
-            return false
-            break;
-        }
-      })
-      .catch((error) => {
-        alert(error.message)
-        return false
-      });
-  }
-  const onLocation = () => {
+    try {
+      const locationAccess = await request(perText)
+      console.log("ACCESS :", locationAccess);
+      if (locationAccess == 'limited' | locationAccess == 'granted' | locationAccess == 'blocked') return true
+      else return false
 
-    const isLocationAccess = permission();
-    if(!isLocationAccess){
+    } catch (err) {
+      console.log("ACCESS ERR :", err);
+      return false
+    }
+  }
+  const onLocation = async () => {
+
+    const isLocationAccess = await permission()
+    if (!isLocationAccess) {
       alert(false)
       return;
     }
-
     Geolocation.getCurrentPosition(
       ({ coords }) => {
         if (map) {
 
-          map.animateToRegion({
+          map?.current?.animateToRegion({
             latitude: coords.latitude,
             longitude: coords.longitude,
             latitudeDelta: 0.005,
@@ -82,7 +64,18 @@ const Home = () => {
           })
         }
       },
-      (error) => alert('Error: Are location services on?' + error.message),
+      (error) => {
+        console.log("ERROR :", error);
+        if (error.code == error.PERMISSION_DENIED) {
+          alert("Lokasyon bilgisi alınamadı. Ayarlar kısmından lokasyona izin verin");
+        }
+        else if (error.code == error.POSITION_UNAVAILABLE) {
+          alert("Lokasyon bilgisi mevcut değil.");
+        }
+        else if (error.code == error.TIMEOUT) {
+          alert("Lokasyon bilgisine erişilemedi. Tekrar deneyin.");
+        }
+      },
       { enableHighAccuracy: true }
     )
   }
@@ -113,8 +106,9 @@ const Home = () => {
     <>
       <MapView
         ref={map}
-        provider={PROVIDER_GOOGLE}
+        // provider={PROVIDER_GOOGLE}
         style={styles.map}
+        showsUserLocation
         initialRegion={region}
         onRegionChange={onRegionChange}
       />

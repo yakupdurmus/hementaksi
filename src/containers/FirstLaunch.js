@@ -11,22 +11,24 @@ const FirstLaunch = (props) => {
         index: 0,
         routes: [{ name: 'Home' }],
       });
-    }, 1000)
+    }, 3000)
   }, [])
 
   return (
     <View style={styles.container}>
       <Image
-        style={styles.image}
+        style={styles.logo}
         source={require('../assets/logo-500x132.png')}
       />
-      <LottieView
-        autoPlay
-        style={{ zIndex: 2 }}
-        source={require('../assets/launch-taxi.json')}
-      />
+      <View style={styles.animationBox}>
+        <LottieView
+          autoPlay
+          resizeMode='cover'
+          source={require('../assets/launch-taxi.json')}
+        />
+      </View>
       <View style={styles.bottomBox}>
-        <Image style={styles.fligran} resizeMode="contain" source={require('../assets/map-800x800.jpg')} />
+        <Image style={styles.fligran} source={require('../assets/map-800x800.jpg')} />
       </View>
     </View>
   );
@@ -37,26 +39,33 @@ const styles = StyleSheet.create({
     backgroundColor: color.smokes,
     zIndex: 0
   },
-  image: {
+  logo: {
     width: screenWidth / 3 * 2,
     height: screenWidth / 3 * 2 / 3.787878,
     position: 'absolute',
     alignSelf: 'center',
-    top: screenWidth / 3,
+    top: screenWidth / 5,
     zIndex: 3
   },
-  bottomBox: {
+  animationBox: {
+    width: screenWidth,
+    height: screenWidth,
     position: 'absolute',
+    zIndex: 2,
+    top: (screenHeight / 2 - screenWidth / 2)
+  },
+  bottomBox: {
     zIndex: 1,
     backgroundColor: color.yellow,
-    bottom: 0,
     height: screenHeight / 2,
-    width: '100%'
+    width: screenWidth,
+    position: 'absolute',
+    top: screenHeight / 2,
   },
   fligran: {
-    width: screenHeight / 2,
+    width: screenWidth,
     height: screenHeight / 2,
-    opacity: 0.1
+    opacity: .2
   }
 
 });
