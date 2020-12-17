@@ -1,69 +1,63 @@
-import React, {useRef, useState} from 'react';
-import MapView, {PROVIDER_GOOGLE, Region} from 'react-native-maps';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-const FirstLaunch = () => {
-  const map = useRef(null);
-  const [region, setRegion] = useState({
-    latitude: 41.0391683,
-    longitude: 28.9982707,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  });
-  const onRegionChange = (changedRegion) => {
-    setRegion(changedRegion);
-  };
-  const zoomDelta = 0.005;
-  const onZoom = (zoomSign) => {
-    const zoomedRegion = {
-      latitude: region.latitude,
-      longitude: region.longitude,
-      latitudeDelta: region.latitudeDelta - zoomDelta * zoomSign,
-      longitudeDelta: region.longitudeDelta - zoomDelta * zoomSign,
-    };
-    setRegion(zoomedRegion);
-    map.current?.animateToRegion(zoomedRegion);
-  };
-  const onZoomIn = () => onZoom(1);
-  const onZoomOut = () => onZoom(-1);
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { screenWidth, screenHeight, color } from '../helper'
+import LottieView from 'lottie-react-native';
+const FirstLaunch = (props) => {
+
+  const { navigation } = props
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }, 1000)
+  }, [])
+
   return (
-    <>
-      <MapView
-        ref={map}
-        provider={PROVIDER_GOOGLE}
-        style={styles.map}
-        initialRegion={region}
-        onRegionChange={onRegionChange}
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require('../assets/logo-500x132.png')}
       />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={onZoomIn}>
-          <Text style={styles.text}>+</Text>
-        </TouchableOpacity>
-        <View style={styles.spacer} />
-        <TouchableOpacity style={styles.button} onPress={onZoomOut}>
-          <Text style={styles.text}>-</Text>
-        </TouchableOpacity>
+      <LottieView
+        autoPlay
+        style={{ zIndex: 2 }}
+        source={require('../assets/launch-taxi.json')}
+      />
+      <View style={styles.bottomBox}>
+        <Image style={styles.fligran} resizeMode="contain" source={require('../assets/map-800x800.jpg')} />
       </View>
-    </>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  map: {
+  container: {
     flex: 1,
+    backgroundColor: color.smokes,
+    zIndex: 0
   },
-  buttonContainer: {
+  image: {
+    width: screenWidth / 3 * 2,
+    height: screenWidth / 3 * 2 / 3.787878,
     position: 'absolute',
-    bottom: 30,
-    end: 20,
-    borderRadius: 5,
-    backgroundColor: '#fff',
-    padding: 12,
+    alignSelf: 'center',
+    top: screenWidth / 3,
+    zIndex: 3
   },
-  button: {},
-  text: {
-    textAlign: 'center',
+  bottomBox: {
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: color.yellow,
+    bottom: 0,
+    height: screenHeight / 2,
+    width: '100%'
   },
-  spacer: {
-    marginVertical: 7,
-  },
+  fligran: {
+    width: screenHeight / 2,
+    height: screenHeight / 2,
+    opacity: 0.1
+  }
+
 });
 export default FirstLaunch;

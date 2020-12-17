@@ -1,9 +1,24 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info'
-
+import { Dimensions } from 'react-native'
 
 //#region CONSTANTS
 export const KEY_CONST = "temp";
+export const color = {
+    yellow: "#f3b743",
+    black: "#000000",
+    orange: "#EE5622",
+    gray1: "#221E22",
+    gray2: "#31263E",
+    gray3: "#44355B",
+    white: "#fff",
+    smoke: "#f7f7f7",
+    border1:"#eee",
+    border2:"#333",
+}
+export const screenWidth = Dimensions.get('screen').width;
+export const screenHeight = Dimensions.get('screen').height;
+
 //#endregion
 
 
