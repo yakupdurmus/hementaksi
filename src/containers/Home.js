@@ -1,86 +1,44 @@
-import React, { useRef, useState } from 'react';
-import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import MapView, { Region } from 'react-native-maps';
+import { View, StyleSheet } from 'react-native';
 import { BasicText, BasicIcon, BasicButton } from '../components'
-// import Geolocation from 'react-native-geolocation-service'
-import Geolocation from '@react-native-community/geolocation';
 
-import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
+import { color, onLocation, onPermission, onZoom, showMessage, showFullMessage, hideMessage,showLoading } from '../helper'
 
-import { color } from '../helper'
-const Home = () => {
+
+const Home = (props) => {
+
+
+  useEffect(() => {
+
+
+    const requestPermission = async () => {
+
+      let response = await onPermission();
+      if (response) {
+        onLocation(map)
+      } else {
+
+      }
+    }
+
+    requestPermission()
+  }, [])
   const map = useRef(null);
-  const [region, setRegion] = useState({
+  const initRegion = {
     latitude: 41.0391683,
     longitude: 28.9982707,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  });
-  const onRegionChange = (changedRegion) => {
-    setRegion(changedRegion);
-  };
-  const zoomDelta = 0.005;
-  const onZoom = (zoomSign) => {
-    const zoomedRegion = {
-      latitude: region.latitude,
-      longitude: region.longitude,
-      latitudeDelta: region.latitudeDelta - zoomDelta * zoomSign,
-      longitudeDelta: region.longitudeDelta - zoomDelta * zoomSign,
-    };
-    setRegion(zoomedRegion);
-    map.current?.animateToRegion(zoomedRegion);
-  };
-
-  const permission = async () => {
-    const isAndroid = Platform.OS == "android"
-    const perText = isAndroid ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
-    try {
-      const locationAccess = await request(perText)
-      console.log("ACCESS :", locationAccess);
-      if (locationAccess == 'limited' | locationAccess == 'granted' | locationAccess == 'blocked') return true
-      else return false
-
-    } catch (err) {
-      console.log("ACCESS ERR :", err);
-      return false
-    }
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
   }
-  const onLocation = async () => {
 
-    const isLocationAccess = await permission()
-    if (!isLocationAccess) {
-      alert(false)
-      return;
-    }
-    Geolocation.getCurrentPosition(
-      ({ coords }) => {
-        if (map) {
 
-          map?.current?.animateToRegion({
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005
-          })
-        }
-      },
-      (error) => {
-        console.log("ERROR :", error);
-        if (error.code == error.PERMISSION_DENIED) {
-          alert("Lokasyon bilgisi alınamadı. Ayarlar kısmından lokasyona izin verin");
-        }
-        else if (error.code == error.POSITION_UNAVAILABLE) {
-          alert("Lokasyon bilgisi mevcut değil.");
-        }
-        else if (error.code == error.TIMEOUT) {
-          alert("Lokasyon bilgisine erişilemedi. Tekrar deneyin.");
-        }
-      },
-      { enableHighAccuracy: true }
-    )
+  const onZoomIn = () => onZoom(1, map)
+  const onZoomOut = () => onZoom(-1, map)
+  const goLocation = () => {
+    showLoading()
+    onLocation(map)
   }
-  const onZoomIn = () => onZoom(1);
-  const onZoomOut = () => onZoom(-1);
 
   const RenderButton = () => {
     return (
@@ -88,17 +46,14 @@ const Home = () => {
         <BasicButton onPress={onZoomIn} style={styles.button}>
           <BasicIcon style={styles.icon} name="plus" type="SimpleLineIcons" />
         </BasicButton>
-        <View style={{ flexDirection: 'row', borderTopWidth: 1, borderColor: color.border1 }}>
-          <BasicButton onPress={onLocation} style={[styles.button, { borderRightWidth: 1, borderColor: color.border1 }]}>
+        <View style={{ flexDirection: 'row' }}>
+          <BasicButton onPress={goLocation} style={styles.button}>
             <BasicIcon style={styles.icon} name="location-pin" type="SimpleLineIcons" />
           </BasicButton>
           <BasicButton onPress={onZoomOut} style={styles.button}>
             <BasicIcon style={styles.icon} name="minus" type="SimpleLineIcons" />
           </BasicButton>
-
-
         </View>
-
       </View>
     )
   }
@@ -106,11 +61,11 @@ const Home = () => {
     <>
       <MapView
         ref={map}
-        // provider={PROVIDER_GOOGLE}
         style={styles.map}
         showsUserLocation
-        initialRegion={region}
-        onRegionChange={onRegionChange}
+        initialRegion={initRegion}
+      // provider={PROVIDER_GOOGLE}
+      // onRegionChange={onRegionChange}
       />
       <RenderButton />
     </>
@@ -122,17 +77,20 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 30,
-    end: 20,
+    bottom: 10,
+    end: 10,
   },
   button: {
     padding: 8,
-    backgroundColor: color.white,
+    margin: 5,
+    backgroundColor: color.orange,
     alignSelf: 'flex-end',
+    borderRadius: 5,
   },
   icon: {
-    fontSize: 20,
+    fontSize: 22,
     flex: 1,
+    color: color.white,
   },
 });
 export default Home;

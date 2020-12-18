@@ -1,6 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info'
-import { Dimensions } from 'react-native'
+import React from 'react'
+import { Dimensions, Platform, View } from 'react-native'
+
+import Geolocation from 'react-native-geolocation-service'
+import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
+import { showMessage as _showMessage, hideMessage as _hideMessage } from 'react-native-flash-message'
+import { Icon } from 'native-base';
+import { BasicLoader } from '../components';
 
 //#region CONSTANTS
 export const KEY_CONST = "temp";
@@ -13,11 +20,11 @@ export const color = {
     gray3: "#44355B",
     white: "#fff",
     smoke: "#f7f7f7",
-    border1:"#eee",
-    border2:"#333",
+    border1: "#eee",
+    border2: "#333",
 }
-export const screenWidth = Dimensions.get('screen').width;
-export const screenHeight = Dimensions.get('screen').height;
+export const screenWidth = Dimensions.get('window').width;
+export const screenHeight = Dimensions.get('window').height;
 
 //#endregion
 
@@ -81,3 +88,116 @@ let user
 export const getUser = () => user
 export const setUser = (_user) => user = { ...user, ..._user }
 export const appVersion = DeviceInfo.getVersion()
+
+//Permission
+export const onPermission = async () => {
+    const isAndroid = Platform.OS == "android"
+    const perText = isAndroid ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
+    try {
+        const locationAccess = await request(perText)
+        console.log("ACCESS :", locationAccess);
+        if (locationAccess == RESULTS.LIMITED | locationAccess == RESULTS.GRANTED) return true
+        else return false
+
+    } catch (err) {
+        alert(err.message)
+        console.log("ACCESS ERR :", err);
+        return false
+    }
+}
+
+export const onLocation = async (map, reRequest = 0) => {
+
+    Geolocation.getCurrentPosition(
+        ({ coords }) => {
+            if (map) {
+
+                map?.current?.animateToRegion({
+                    latitude: coords.latitude,
+                    longitude: coords.longitude,
+                    latitudeDelta: 0.005,
+                    longitudeDelta: 0.005
+                })
+            }
+        },
+        (error) => {
+            console.log("ERROR :", error);
+            if (error.code == error.PERMISSION_DENIED) {
+                alert("Lokasyon bilgisi alınamadı. Ayarlar kısmından lokasyona izin verin");
+            }
+            else if (error.code == error.POSITION_UNAVAILABLE) {
+                alert("Lokasyon bilgisi mevcut değil.");
+            }
+            else if (error.code == error.TIMEOUT) {
+                if (reRequest > 4) {
+                    alert("Lokasyon bilgisine ulaşılamadı. Tekrar deneyiniz.");
+                    return
+                }
+                setTimeout(() => {
+                    onLocation(map, reRequest + 1)
+                }, 1000)
+            }
+        },
+        { enableHighAccuracy: true }
+    )
+}
+
+const zoomDelta = 0.005;
+export const onZoom = (zoomSign, map) => {
+    if (!map || !map.current) return;
+    const region = map.current.__lastRegion
+    const zoomedRegion = {
+        latitude: region.latitude,
+        longitude: region.longitude,
+        latitudeDelta: region.latitudeDelta - zoomDelta * zoomSign,
+        longitudeDelta: region.longitudeDelta - zoomDelta * zoomSign,
+    };
+    map.current?.animateToRegion(zoomedRegion);
+    return zoomedRegion
+    //setRegion(zoomedRegion);
+};
+
+
+//Flashmessage
+
+export const showMessage = (props) => {
+    _showMessage({
+        type: "success",
+        message: "Başarılı",
+        floating: true,
+        style: { marginTop: 30 },
+        renderFlashMessageIcon: () => <Icon name="person" />,
+        ...props
+    });
+}
+export const showFullMessage = (props) => {
+    _showMessage({
+        message: null,
+        type: "info",
+        position: 'top',
+        autoHide: true,
+        onPress: () => { },
+        hideOnPress: true,
+        style: { paddingLeft: 0, marginLeft: 0, paddingBottom: 0, backgroundColor: color.border1 },
+        renderCustomContent: () => {
+            return <View style={{ width: 500, height: 500, backgroundColor: color.border1 }}></View>
+        },
+    });
+}
+export const showLoading = (props) => {
+    _showMessage({
+        message: null,
+        type: "info",
+        position: 'top',
+        autoHide: false,
+        onPress: () => { },
+        hideOnPress: true,
+        style: { paddingLeft: 0, marginLeft: 0,marginTop:0,paddingTop:0, paddingBottom: 0, backgroundColor:'rgba(0, 0, 0, .5)'},
+        renderCustomContent: () => {
+            return <View style={{ height:screenHeight, justifyContent: 'center', alignItems: 'center' }}>
+                <BasicLoader  />
+            </View>
+        },
+    });
+}
+export const hideMessage = () => _hideMessage()

@@ -1,11 +1,13 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Navigations from './Navigations';
+import FlashMessage from "react-native-flash-message";
 
 const AppContainer = () => {
   return (
     <View style={styles.container}>
       <Navigations />
+      <FlashMessage />
     </View>
   )
 };
