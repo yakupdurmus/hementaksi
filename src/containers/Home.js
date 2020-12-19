@@ -3,41 +3,27 @@ import MapView, { Region } from 'react-native-maps';
 import { View, StyleSheet } from 'react-native';
 import { BasicText, BasicIcon, BasicButton } from '../components'
 
-import { color, onLocation, onPermission, onZoom, showMessage, showFullMessage, hideMessage,showLoading } from '../helper'
+import { color, onLocation, onPermission, onZoom, showMessage, showFullMessage, hideMessage, showLoading,goLocation } from '../helper'
 
 
 const Home = (props) => {
 
+  const { navigation, route: { params } } = props
+  const { coords } = params
 
-  useEffect(() => {
 
-
-    const requestPermission = async () => {
-
-      let response = await onPermission();
-      if (response) {
-        onLocation(map)
-      } else {
-
-      }
-    }
-
-    requestPermission()
-  }, [])
   const map = useRef(null);
   const initRegion = {
-    latitude: 41.0391683,
-    longitude: 28.9982707,
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
+    ...coords
   }
 
 
   const onZoomIn = () => onZoom(1, map)
   const onZoomOut = () => onZoom(-1, map)
-  const goLocation = () => {
-    showLoading()
-    onLocation(map)
+  const goLocationAnimated = () => {
+    goLocation(map)
   }
 
   const RenderButton = () => {
@@ -47,7 +33,7 @@ const Home = (props) => {
           <BasicIcon style={styles.icon} name="plus" type="SimpleLineIcons" />
         </BasicButton>
         <View style={{ flexDirection: 'row' }}>
-          <BasicButton onPress={goLocation} style={styles.button}>
+          <BasicButton onPress={goLocationAnimated} style={styles.button}>
             <BasicIcon style={styles.icon} name="location-pin" type="SimpleLineIcons" />
           </BasicButton>
           <BasicButton onPress={onZoomOut} style={styles.button}>

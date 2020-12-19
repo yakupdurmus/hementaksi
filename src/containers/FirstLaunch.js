@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { screenWidth, screenHeight, color } from '../helper'
 import LottieView from 'lottie-react-native';
+import { onLocation, appVersion } from '../helper'
+import { BasicText } from '../components';
 const FirstLaunch = (props) => {
 
   const { navigation } = props
+
   useEffect(() => {
-    setTimeout(() => {
+
+    onLocation((coords) => {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Home' }],
+        routes: [{
+          name: 'Home', params: {
+            coords
+          }
+        }],
       });
-    }, 3000)
+    })
   }, [])
 
   return (
@@ -28,6 +36,7 @@ const FirstLaunch = (props) => {
         />
       </View>
       <View style={styles.bottomBox}>
+        <SafeAreaView style={styles.safeArea}><BasicText style={styles.textStyle}>Lokasyon bilgisi bekleniyor...{`\n\n`}© 2020 Hemen Taksi{`\n`}v{appVersion}</BasicText></SafeAreaView>
         <Image style={styles.fligran} source={require('../assets/map-800x800.jpg')} />
       </View>
     </View>
@@ -66,6 +75,14 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight / 2,
     opacity: .2
+  },
+  textStyle: {
+    textAlign: 'center',
+  },
+  safeArea: {
+    position: 'absolute',
+    bottom: 25,
+    alignSelf: 'center',
   }
 
 });
