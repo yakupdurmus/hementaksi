@@ -33,7 +33,6 @@ const styles = {
         color: 'red',
     },
     textInput: {
-        width: '100%',
         height: 40,
         paddingLeft: 10,
         borderWidth: 1,

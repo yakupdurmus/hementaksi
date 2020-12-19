@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { color } from '../helper';
+import { BasicInput } from './Basic/BasicInput';
 import { BasicIcon, BasicButton, BasicText, BasicLoader, MapButtons } from './index'
 
 export const BottomContent = ({ mapRef }) => {
 
     const [selection, setSelection] = useState({
-        callType: 0,
-        driverType: 0
+        callType: 2,
+        driverType: 2
     })
 
     const buttons = [
@@ -28,7 +29,7 @@ export const BottomContent = ({ mapRef }) => {
                 key: "callType",
                 id: 2,
                 image: require('../assets/pintaxi-256x256.png'),
-                label: "En Hızlısı"
+                label: "Fark Etmez"
             },
         ],
         [
@@ -48,7 +49,7 @@ export const BottomContent = ({ mapRef }) => {
                 key: "driverType",
                 id: 2,
                 image: require('../assets/pintaxi-256x256.png'),
-                label: "En Hızlısı"
+                label: "Fark Etmez"
             }
         ]
     ]
@@ -57,9 +58,27 @@ export const BottomContent = ({ mapRef }) => {
         setSelection({ ...selection })
     }
 
+    const onPressGetTaxi = () => {
+
+    }
+
+    const onPressSearch = () => {
+
+    }
+
+
     const activeStyle = { borderWidth: 1, borderColor: color.border2 }
     return (
         <SafeAreaView style={styles.container}>
+
+            <TouchableOpacity
+                onPress={onPressSearch}
+                activeOpacity={.75}
+                style={styles.searchInput}>
+                <BasicIcon type="EvilIcons" name="search" />
+                <BasicText style={{ color: color.placeholder }}>Nereye Gitmek İstiyorsun ?</BasicText>
+            </TouchableOpacity>
+
             <View style={styles.content} >
                 <View style={{ flex: 1 }}>
                     {buttons.map((rowItem, rowIndex) => (
@@ -82,7 +101,14 @@ export const BottomContent = ({ mapRef }) => {
                 </View>
                 <MapButtons mapRef={mapRef} />
             </View >
-            <BasicButton orange style={{height:50}} textStyle={{ fontWeight: 'bold' }} >Hemen Taksi Gönder</BasicButton>
+
+            <BasicButton
+                onPress={onPressGetTaxi}
+                orange
+                style={{ height: 50 }}
+                textStyle={{ fontWeight: 'bold' }}
+            >Hemen Taksi Gönder</BasicButton>
+
         </SafeAreaView>
     )
 };
@@ -90,7 +116,17 @@ export const BottomContent = ({ mapRef }) => {
 const styles = StyleSheet.create({
 
     container: {
-        height: 240, backgroundColor: '#fff'
+        height: 280,
+        backgroundColor: '#fff'
+    },
+    searchInput: {
+        marginHorizontal: 30,
+        borderBottomWidth: 1,
+        borderColor: color.placeholder,
+        paddingVertical: 5,
+        height: 40,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 
     content: {
@@ -113,8 +149,11 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: "100%",
         height: 30,
+        marginTop:-4,
     },
     textStyle: {
         textAlign: 'center',
-    }
+        marginTop:-4,
+        backgroundColor: color.white
+    },
 })

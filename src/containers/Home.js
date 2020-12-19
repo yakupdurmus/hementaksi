@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import MapView, { Region } from 'react-native-maps';
 import { View, StyleSheet } from 'react-native';
-import { BasicLoader, BottomContent, MapButtons } from '../components'
+import { BasicLoader, BottomContent, TopButton } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
 
 
@@ -26,6 +26,7 @@ const Home = (props) => {
 
   return (
     <>
+      <TopButton navigation={navigation} />
       <MapView
         ref={map}
         style={styles.map}
@@ -36,9 +37,9 @@ const Home = (props) => {
       />
       <BottomSheet
         ref={sheetRef}
-        snapPoints={[240, 240, 150]}
+        snapPoints={[280, 280, 100]}
         borderRadius={10}
-        renderContent={()=><BottomContent mapRef={map} />}
+        renderContent={() => <BottomContent mapRef={map} />}
       />
     </>
   );

@@ -53,6 +53,8 @@ export const color = {
     smoke: "#f7f7f7",
     border1: "#eee",
     border2: "#333",
+    border3: "#ddd",
+    placeholder:'#aaa',
 }
 export const screenWidth = Dimensions.get('window').width;
 export const screenHeight = Dimensions.get('window').height;

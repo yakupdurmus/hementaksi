@@ -4,6 +4,8 @@ import { screenWidth, screenHeight, color } from '../helper'
 import LottieView from 'lottie-react-native';
 import { onLocation, appVersion } from '../helper'
 import { BasicText } from '../components';
+
+let timer
 const FirstLaunch = (props) => {
 
   const { navigation } = props
@@ -11,15 +13,19 @@ const FirstLaunch = (props) => {
   useEffect(() => {
 
     onLocation((coords) => {
-      
-      navigation.reset({
-        index: 0,
-        routes: [{
-          name: 'Home', params: {
-            coords
-          }
-        }],
-      });
+
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{
+            name: 'Home', params: {
+              coords
+            }
+          }],
+        });
+      }, 500)
+
     })
   }, [])
 
