@@ -1,7 +1,14 @@
-import { BasicText } from './BasicText'
-import { BasicButton } from './BasicButton'
-import { BasicInput } from './BasicInput'
-import { BasicLoader } from './BasicLoader'
-import { BasicIcon } from './BasicIcon'
+import { BasicText } from './Basic/BasicText'
+import { BasicButton } from './Basic/BasicButton'
+import { BasicInput } from './Basic/BasicInput'
+import { BasicLoader } from './Basic/BasicLoader'
+import { BasicIcon } from './Basic/BasicIcon'
 
-export { BasicText, BasicButton, BasicInput, BasicLoader, BasicIcon };
+import { BottomContent } from './BottomContent'
+import { MapButtons } from './MapButtons'
+
+export {
+    BasicText, BasicButton, BasicInput, BasicLoader, BasicIcon,
+    BottomContent, MapButtons
+
+};

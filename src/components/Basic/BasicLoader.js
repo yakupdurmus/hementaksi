@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import Spinner from 'react-native-spinkit'
-import { color } from '../helper'
+import { color } from '../../helper'
 
 export const BasicLoader = (props) => {
 

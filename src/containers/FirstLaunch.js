@@ -11,6 +11,7 @@ const FirstLaunch = (props) => {
   useEffect(() => {
 
     onLocation((coords) => {
+      
       navigation.reset({
         index: 0,
         routes: [{

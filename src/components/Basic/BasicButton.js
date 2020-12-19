@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
+import { color } from '../../helper'
 import { BasicText } from './BasicText'
 
 export const BasicButton = (props) => {
@@ -13,16 +14,16 @@ export const BasicButton = (props) => {
                 props.left ? styles.left : {},
                 props.right ? styles.right : {},
                 props.light ? styles.light : {},
-                props.danger ? styles.danger : {},
-                props.primary ? styles.primary : {},
+                props.yellow ? styles.yellow : {},
+                props.orange ? styles.orange : {},
                 props.style
             ]}
         >
             <BasicText
                 {...props.textProps}
                 style={[
-                    props.danger ? styles.danger : {},
-                    props.primary ? styles.primary : {},
+                    props.yellow ? styles.yellow : {},
+                    props.orange ? styles.orange : {},
                     props.textStyle,
                 ]}
             >{props.children}{props.label}</BasicText>
@@ -62,14 +63,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#ddd',
         borderRadius: 3,
     },
-    danger: {
-        backgroundColor: '#f73f40',
-        color:'#fff',
+    orange: {
+        backgroundColor: color.orange,
+        color: '#fff',
         borderRadius: 3,
     },
-    primary: {
-        backgroundColor: '#00b7cd',
-        color:'#fff',
+    yellow: {
+        backgroundColor: color.yellow,
+        color: '#fff',
         borderRadius: 3,
     }
 

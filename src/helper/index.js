@@ -91,8 +91,8 @@ export const getStoreValue = async (key) => {
 
 //#region MAPS
 
+const isAndroid = Platform.OS == "android"
 export const onPermission = async () => {
-    const isAndroid = Platform.OS == "android"
     const perText = isAndroid ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
     try {
         const locationAccess = await request(perText)
@@ -146,9 +146,9 @@ export const onLocation = (callback, reRequest = 0) => {
 
     console.log("onLocation : init")
     Geolocation.getCurrentPosition(
-        
+
         ({ coords }) => {
-            console.log("onLocation : ",coords)
+            console.log("onLocation : ", coords)
             callback && callback(coords)
         },
         (error) => {
@@ -156,7 +156,7 @@ export const onLocation = (callback, reRequest = 0) => {
             if (error.code == 1) { // daha bir izin isteği verilmemişse
                 onPermission().then(response => {
                     //true de olsa false de olsa
-                    if (response == RESULTS.BLOCKED) {
+                    if (response == RESULTS.BLOCKED && isAndroid) {
                         Alert.alert(
                             'Lokasyon',
                             'Kullanım için lokasyon erişimine izin vermelisin.',
@@ -177,6 +177,32 @@ export const onLocation = (callback, reRequest = 0) => {
                         );
                         //Linking.openURL('app-settings:');
                         return;
+                    } else if (response == RESULTS.BLOCKED && !isAndroid) {
+                        if (reRequest > 2) {
+                            Alert.alert(
+                                'Lokasyon',
+                                'Kullanım için lokasyon erişimine izin vermelisin.',
+                                [
+                                    {
+                                        text: 'İzin ver',
+                                        onPress: () => {
+                                            Linking.openSettings();
+                                        }
+                                    },
+                                    {
+                                        text: 'Vazgeç',
+                                        onPress: () => console.log('Cancel Pressed'),
+                                        style: 'cancel'
+                                    }
+                                ],
+                                { cancelable: false }
+                            );
+                            return;
+                        } else {
+                            setTimeout(() => {
+                                onLocation(callback, reRequest + 1)
+                            }, 500)
+                        }
                     }
                     setTimeout(() => {
                         onLocation(callback, reRequest)
