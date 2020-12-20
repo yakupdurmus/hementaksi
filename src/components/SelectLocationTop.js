@@ -1,55 +1,43 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { color } from '../helper'
-import { BasicInput } from './Basic/BasicInput'
-import { BasicText } from './Basic/BasicText'
+import React, { useState, useEffect } from 'react'
+import { SafeAreaView, StyleSheet, View, FlatList, TouchableOpacity, Keyboard } from 'react-native'
+import { BasicInput, BasicText, BasicIcon } from './index'
+import { color, mockSearchData } from '../helper'
+import { Content } from 'native-base'
 
-const data = [
-    { text: "Levent Metro" },
-    { text: "Levent Durak" },
-    { text: "4.Levent" },
-    { text: "Metorcity" },
-    { text: "Safit Alışveriş merkezi" },
-    { text: "Kanyon Alışveriş merkezi" },
-    { text: "Levent Metro" },
-    { text: "Levent Durak" },
-    { text: "4.Levent" },
-    { text: "Metorcity" },
-    { text: "Safit Alışveriş merkezi" },
-    { text: "Kanyon Alışveriş merkezi" },
-    { text: "Levent Metro" },
-    { text: "Levent Durak" },
-    { text: "4.Levent" },
-    { text: "Metorcity" },
-    { text: "Safit Alışveriş merkezi" },
-    { text: "Kanyon Alışveriş merkezi" },
-]
-
-const SearchInput = () => {
+const SearchInput = ({ onChangeText, onPressCancel, value, onPressSearch }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.searchInputContainer}>
             <BasicInput
                 placeholder="🔍 Nereye gitmek istiyorsun? "
                 autoFocus
-                //title="Gitmek istediğin yeri girin veya harita üzerinden seçim yapın"
+                autoCapitalize={false}
+                autoCompleteType={'street-address'}
+                contextMenuHidden
+                maxLength={30}
+                returnKeyType={'search'}
+                returnKeyLabel={"Ara"}
+                onSubmitEditing={() => { onPressSearch(value) }}
+                blurOnSubmit={false}
+                value={value}
+                onChangeText={onChangeText}
                 contentStyle={styles.searchInputContent}
                 style={styles.searchInput}>
             </BasicInput>
+            <BasicIcon onPress={onPressCancel} style={{ fontSize: 20, padding: 5, paddingHorizontal: 10, }} name="close-a" type="Fontisto" />
         </View>
     )
 }
 
-const SearchContent = () => {
+const SearchContent = ({ searchResult, onPressSearchItem }) => {
     return (
-        <View style={{ backgroundColor: color.yellow, padding: 10 }}>
+        <Content style={{ backgroundColor: color.yellow, padding: 10 }}>
             <FlatList
                 keyboardShouldPersistTaps="always"
-                data={data.slice(0, 10)}
-                keyExtractor={(item, index) => "list-" + index}
+                data={searchResult?.slice(0, 10)}
+                keyExtractor={({ item, index }) => "list-" + index}
                 ListHeaderComponent={() => {
                     return (
-                        <TouchableOpacity activeOpacity={.75} style={{ padding: 10, paddingVertical: 15, backgroundColor: color.white, borderBottomWidth: 1, borderColor: color.border1 }}>
+                        <TouchableOpacity onPress={() => onPressSearchItem(-1)} activeOpacity={.75} style={{ padding: 10, paddingVertical: 15, backgroundColor: color.white, borderBottomWidth: 1, borderColor: color.border1 }}>
                             <BasicText>★ Haritadan Seç</BasicText>
                         </TouchableOpacity>
                     )
@@ -57,21 +45,61 @@ const SearchContent = () => {
                 }}
                 renderItem={({ item, index }) => {
                     return (
-                        <TouchableOpacity activeOpacity={.75} style={{ padding: 10, paddingVertical: 15, backgroundColor: color.white, borderBottomWidth: 1, borderColor: color.border1 }}>
-                            <BasicText style={{}}>{item.text}</BasicText>
+                        <TouchableOpacity
+                            onPress={() => { onPressSearchItem(index) }}
+                            activeOpacity={.75} style={{ padding: 10, paddingVertical: 15, backgroundColor: color.white, borderBottomWidth: 1, borderColor: color.border1 }}>
+                            <BasicText>{item.text}</BasicText>
                         </TouchableOpacity>
                     )
                 }} />
-        </View>
+        </Content>
     )
 }
 
+let timer;
+export const SelectLocationTop = ({ navigation }) => {
 
-export const SelectLocationTop = () => {
+    const [searchTerm, setSearchTerm] = useState("")
+    const [searchResult, setSearchResult] = useState([])
+    const [historyResult, setHistoryResult] = useState([])
+
+    useEffect(() => {
+    }, [])
+
+    const onChangeText = (term) => {
+
+        setSearchTerm(term)
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+
+            if (term.length > 2) {
+                setSearchResult(mockSearchData)
+            }
+
+        }, 500)
+    }
+
+    const onPressSearchItem = (id) => {
+        setSearchResult([])
+        navigation.goBack()
+
+    }
+    const onPressCancel = () => {
+        setSearchTerm('')
+        setSearchResult([])
+    }
+    const onPressSearch = (term) => {
+        Keyboard.dismiss()
+        setSearchTerm('')
+        setSearchResult([])
+    }
+
+
+
     return (
         <SafeAreaView style={styles.safeAreaStyle}>
-            <SearchInput />
-            <SearchContent />
+            <SearchInput value={searchTerm} onChangeText={onChangeText} onPressCancel={onPressCancel} onPressSearch={onPressSearch} />
+            <SearchContent searchResult={searchResult} onPressSearchItem={onPressSearchItem} />
         </SafeAreaView>
     )
 }
@@ -86,8 +114,16 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.yellow,
     },
+    searchInputContainer: {
+        backgroundColor: color.yellow,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+    },
     searchInputContent: {
         margin: 10,
+        flex: 1,
     },
     searchInput: {
         backgroundColor: color.white

@@ -50,7 +50,7 @@ export const color = {
     border1: "#eee",
     border2: "#333",
     border3: "#ddd",
-    placeholder:'#aaa',
+    placeholder: '#aaa',
 }
 export const screenWidth = Dimensions.get('window').width;
 export const screenHeight = Dimensions.get('window').height;
@@ -293,3 +293,26 @@ export const showLoading = (props) => {
 }
 export const hideMessage = () => _hideMessage()
 //#endregion
+
+
+
+export const mockSearchData = [
+    { text: "Levent Metro" },
+    { text: "Levent Durak" },
+    { text: "4.Levent" },
+    { text: "Metorcity" },
+    { text: "Safit Alışveriş merkezi" },
+    { text: "Kanyon Alışveriş merkezi" },
+    { text: "Levent Metro" },
+    { text: "Levent Durak" },
+    { text: "4.Levent" },
+    { text: "Metorcity" },
+    { text: "Safit Alışveriş merkezi" },
+    { text: "Kanyon Alışveriş merkezi" },
+    { text: "Levent Metro" },
+    { text: "Levent Durak" },
+    { text: "4.Levent" },
+    { text: "Metorcity" },
+    { text: "Safit Alışveriş merkezi" },
+    { text: "Kanyon Alışveriş merkezi" },
+]
