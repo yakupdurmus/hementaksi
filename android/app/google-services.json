@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "710248797920",
+    "firebase_url": "https://hementaksiapp-default-rtdb.firebaseio.com",
+    "project_id": "hementaksiapp",
+    "storage_bucket": "hementaksiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710248797920:android:ab580de2da9da676ff6285",
+        "android_client_info": {
+          "package_name": "com.hementaksi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710248797920-21c875l2on8i8qpb26ctqp78dbvkpj2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfeB5WxGH3IMVNdeG6cjGb9Ygawt8PgP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710248797920-21c875l2on8i8qpb26ctqp78dbvkpj2q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "710248797920-urp2qdih1d1vtppvegb2rjk33fu92u0u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hementaksi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
