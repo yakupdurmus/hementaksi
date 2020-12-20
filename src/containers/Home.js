@@ -1,9 +1,10 @@
-import React, { useRef, useContext } from 'react';
-import MapView, { Region } from 'react-native-maps';
-import { View, StyleSheet } from 'react-native';
-import { BasicLoader, BottomContent, TopButton } from '../components'
+import React, { useRef, useContext, useState, useEffect } from 'react';
+import MapView, { Region, Marker } from 'react-native-maps';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { BasicButton, BasicLoader, BottomContent, TopButton } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
 import AppContext from '../context'
+import database from '@react-native-firebase/database';
 
 
 
@@ -11,6 +12,8 @@ const Home = (props) => {
 
   const { navigation } = props
   const { currentCoord } = useContext(AppContext)
+  const [taxiLocation, setTaxiLocation] = useState([])
+
 
   //Kontrol
   if (!currentCoord) return <BasicLoader />
@@ -18,6 +21,18 @@ const Home = (props) => {
   const map = useRef(null);
   const sheetRef = React.useRef(null);
 
+  useEffect(() => {
+
+    database()
+      .ref('/location')
+      .on('value', values => {
+        console.log('TEST:', values.val())
+        setTaxiLocation(values.val())
+      });
+
+  }, [])
+
+  console.log("TEST2", taxiLocation);
   return (
     <>
       <TopButton navigation={navigation} />
@@ -28,7 +43,22 @@ const Home = (props) => {
         initialRegion={currentCoord}
       // provider={PROVIDER_GOOGLE}
       // onRegionChange={onRegionChange}
-      />
+      >
+        {taxiLocation.map(item => {
+
+          return (
+            <Marker
+              key={item.key}
+              coordinate={item}
+              image={require('../assets/taxipin-64x64.png')}
+            // title={item.key}
+            // description={item.key}
+            />
+
+          )
+
+        })}
+      </MapView>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[280, 280, 100]}

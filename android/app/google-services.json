@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1042110860543",
+    "firebase_url": "https://bisrent-app.firebaseio.com",
+    "project_id": "bisrent-app",
+    "storage_bucket": "bisrent-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042110860543:android:86c80bf257cee0affe50ca",
+        "android_client_info": {
+          "package_name": "com.hementaksi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042110860543-f13nl32ckv5jmt1jpe073nd6u87a8v0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe3bjOXoe2ANf5kw_5o4kexWz8_py_j5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042110860543-f13nl32ckv5jmt1jpe073nd6u87a8v0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

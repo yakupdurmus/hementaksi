@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1042110860543-rhsgp5i84cd4ubd1q83m1u0ldqe1h35c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1042110860543-rhsgp5i84cd4ubd1q83m1u0ldqe1h35c</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA1xRRD2qZl-hlvzgU9b_0oFUtVwjjEKJA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1042110860543</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hementaksi</string>
+	<key>PROJECT_ID</key>
+	<string>bisrent-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bisrent-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1042110860543:ios:44e2d961ee9a5e84fe50ca</string>
+	<key>DATABASE_URL</key>
+	<string>https://bisrent-app.firebaseio.com</string>
+</dict>
+</plist>
