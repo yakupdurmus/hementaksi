@@ -10,19 +10,19 @@ const goLocationAnimated = () => {
     goLocation(map)
 }
 
-export const MapButtons = ({ mapRef }) => {
+export const MapButtons = ({ mapRef, hideMinus, hidePlus, buttonStyle }) => {
     map = mapRef
     return (
         <View style={styles.buttonContainer}>
-            <BasicButton onPress={goLocationAnimated} style={styles.button}>
+            <BasicButton onPress={goLocationAnimated} style={[styles.button, buttonStyle]}>
                 <BasicIcon style={styles.icon} name="location-pin" type="SimpleLineIcons" />
             </BasicButton>
-            <BasicButton onPress={onZoomIn} style={styles.button}>
+            {!hidePlus && <BasicButton onPress={onZoomIn} style={[styles.button, buttonStyle]}>
                 <BasicIcon style={styles.icon} name="plus" type="SimpleLineIcons" />
-            </BasicButton>
-            <BasicButton onPress={onZoomOut} style={styles.button}>
+            </BasicButton>}
+            {!hideMinus && <BasicButton onPress={onZoomOut} style={[styles.button, buttonStyle]}>
                 <BasicIcon style={styles.icon} name="minus" type="SimpleLineIcons" />
-            </BasicButton>
+            </BasicButton>}
             <View style={{ flexDirection: 'row' }}>
             </View>
         </View>
