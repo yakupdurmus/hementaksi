@@ -1,25 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import MapView, { Region } from 'react-native-maps';
 import { View, StyleSheet } from 'react-native';
 import { BasicLoader, BottomContent, TopButton } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
-
+import AppContext from '../context'
 
 
 
 const Home = (props) => {
 
-  const { navigation, route: { params } } = props
+  const { navigation } = props
+  const { currentCoord } = useContext(AppContext)
 
   //Kontrol
-  if (!params || !params.coords) return <BasicLoader />
-
-  const { coords } = params
-  const initRegion = {
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1,
-    ...coords
-  }
+  if (!currentCoord) return <BasicLoader />
 
   const map = useRef(null);
   const sheetRef = React.useRef(null);
@@ -31,7 +25,7 @@ const Home = (props) => {
         ref={map}
         style={styles.map}
         showsUserLocation
-        initialRegion={initRegion}
+        initialRegion={currentCoord}
       // provider={PROVIDER_GOOGLE}
       // onRegionChange={onRegionChange}
       />
@@ -39,7 +33,7 @@ const Home = (props) => {
         ref={sheetRef}
         snapPoints={[280, 280, 100]}
         borderRadius={10}
-        renderContent={() => <BottomContent mapRef={map} />}
+        renderContent={() => <BottomContent navigation={navigation} mapRef={map} />}
       />
     </>
   );

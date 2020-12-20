@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Navigations from './Navigations';
 import FlashMessage from "react-native-flash-message";
+import AppContext from './context'
 
 const AppContainer = () => {
+
+  const [currentCoord, setCurrentCoord] = useState();
+  const [nextCoord, setNextCoord] = useState();
+
   return (
     <View style={styles.container}>
-      <Navigations />
-      <FlashMessage />
+      <AppContext.Provider
+        value={{
+          currentCoord,
+          setCurrentCoord,
+          nextCoord,
+          setNextCoord,
+        }}
+      >
+        <Navigations />
+        <FlashMessage />
+      </AppContext.Provider>
     </View>
   )
 };

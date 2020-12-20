@@ -4,7 +4,7 @@ import { color } from '../helper';
 import { BasicInput } from './Basic/BasicInput';
 import { BasicIcon, BasicButton, BasicText, BasicLoader, MapButtons } from './index'
 
-export const BottomContent = ({ mapRef }) => {
+export const BottomContent = ({ mapRef, navigation }) => {
 
     const [selection, setSelection] = useState({
         callType: 2,
@@ -63,7 +63,7 @@ export const BottomContent = ({ mapRef }) => {
     }
 
     const onPressSearch = () => {
-
+        navigation.navigate('SelectLocation');
     }
 
 
@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: "100%",
         height: 30,
-        marginTop:-4,
+        marginTop: -4,
     },
     textStyle: {
         textAlign: 'center',
-        marginTop:-4,
+        marginTop: -4,
         backgroundColor: color.white
     },
 })

@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { screenWidth, screenHeight, color } from '../helper'
 import LottieView from 'lottie-react-native';
 import { onLocation, appVersion } from '../helper'
 import { BasicText } from '../components';
-
+import AppContext from '../context'
 let timer
 const FirstLaunch = (props) => {
 
+  const { setCurrentCoord, setNextCoord } = useContext(AppContext)
   const { navigation } = props
 
   useEffect(() => {
@@ -16,13 +17,19 @@ const FirstLaunch = (props) => {
 
       timer && clearTimeout(timer)
       timer = setTimeout(() => {
+
+        const region = {
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
+          ...coords,
+        }
+
+        
+        setCurrentCoord(region)
+        setNextCoord(region)
         navigation.reset({
           index: 0,
-          routes: [{
-            name: 'Home', params: {
-              coords
-            }
-          }],
+          routes: [{ name: 'Home' }],
         });
       }, 500)
 

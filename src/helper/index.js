@@ -34,10 +34,6 @@ export const shuffle = (array) => {
     return array;
 }
 
-//Basic Store
-let user
-export const getUser = () => user
-export const setUser = (_user) => user = { ...user, ..._user }
 export const appVersion = DeviceInfo.getVersion()
 
 //#region CONSTANTS
