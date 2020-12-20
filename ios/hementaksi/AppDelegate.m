@@ -31,7 +31,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyAUpN7hBCrk5RYab3v0vMAIWPn2fk4gRZA"];
+  [GMSServices provideAPIKey:@"AIzaSyCNRqIP-St7ZG0ZrzdUFqIrf-FN91STJc8"];
   if ([FIRApp defaultApp] == nil) {
       [FIRApp configure];
     }

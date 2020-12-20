@@ -26,13 +26,14 @@ const Home = (props) => {
     database()
       .ref('/location')
       .on('value', values => {
-        console.log('TEST:', values.val())
-        setTaxiLocation(values.val())
+        const val = values.val();
+        console.log('Firebase RealTime :', val)
+        if (val) setTaxiLocation(val)
       });
 
   }, [])
 
-  console.log("TEST2", taxiLocation);
+  console.log("RealTime Taxi Location", taxiLocation);
   return (
     <>
       <TopButton navigation={navigation} />

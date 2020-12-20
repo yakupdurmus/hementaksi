@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* hementaksiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* hementaksiTests.m */; };
 		04B2A6A782F54183BF4E4FDE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBD7E3E349124B1588D6C1DB /* FontAwesome.ttf */; };
-		054BF96F258FABE700510D12 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 054BF96E258FABE700510D12 /* GoogleService-Info.plist */; };
+		054BFBCC258FFE0C00510D12 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 054BFBCB258FFE0C00510D12 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -66,7 +66,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* hementaksiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hementaksiTests.m; sourceTree = "<group>"; };
 		033AC91394DED36B7914015A /* libPods-hementaksi-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hementaksi-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		054BF96E258FABE700510D12 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "hementaksi/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		054BFBCB258FFE0C00510D12 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0CD3214FBD084F26A964AA8F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		108E0EB740A641B3B3D5610E /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* hementaksi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hementaksi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +167,7 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				054BF96E258FABE700510D12 /* GoogleService-Info.plist */,
+				054BFBCB258FFE0C00510D12 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -427,7 +427,7 @@
 				2EBF6CD1CDD8483EA4230286 /* Roboto_medium.ttf in Resources */,
 				9967A0D9FCA14BA3A138F904 /* Roboto.ttf in Resources */,
 				BBCA00583EA04533986B5E4D /* rubicon-icon-font.ttf in Resources */,
-				054BF96F258FABE700510D12 /* GoogleService-Info.plist in Resources */,
+				054BFBCC258FFE0C00510D12 /* GoogleService-Info.plist in Resources */,
 				26F1CA47401842F5978110D5 /* SimpleLineIcons.ttf in Resources */,
 				8BD1DCC77AC046FCA4080C61 /* Zocial.ttf in Resources */,
 			);
