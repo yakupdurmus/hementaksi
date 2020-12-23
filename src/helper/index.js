@@ -113,8 +113,8 @@ export const goLocation = async (map, reRequest = 0) => {
                 map?.current?.animateToRegion({
                     latitude: coords.latitude,
                     longitude: coords.longitude,
-                    latitudeDelta: 0.005,
-                    longitudeDelta: 0.005
+                    latitudeDelta: 0.0074150770677476885,
+                    longitudeDelta: 0.004999999999967031
                 })
             }
         },
@@ -295,6 +295,10 @@ export const hideMessage = () => _hideMessage()
 //#endregion
 
 
+export const capitalize = (str) => {
+    if (!str) return ""
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 export const mockSearchData = [
     { text: "Levent Metro" },

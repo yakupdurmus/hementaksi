@@ -7,7 +7,9 @@ import AppContext from './context'
 const AppContainer = () => {
 
   const [currentCoord, setCurrentCoord] = useState();
-  const [nextCoord, setNextCoord] = useState();
+  const [destinationCoord, setDestinationCoord] = useState();
+  const [sourceCoord, setSourceCoord] = useState();
+  const [selectCoord, setSelectCoord] = useState();
 
   return (
     <View style={styles.container}>
@@ -15,8 +17,12 @@ const AppContainer = () => {
         value={{
           currentCoord,
           setCurrentCoord,
-          nextCoord,
-          setNextCoord,
+          destinationCoord,
+          setDestinationCoord,
+          sourceCoord,
+          setSourceCoord,
+          selectCoord,
+          setSelectCoord
         }}
       >
         <Navigations />

@@ -1,44 +1,42 @@
 import React, { useRef, useContext } from 'react';
 import MapView, { Region } from 'react-native-maps';
-import { View, StyleSheet } from 'react-native';
-import { BasicButton, BasicLoader, MapButtons, SelectLocationTop } from '../components'
+import { StyleSheet } from 'react-native';
+import { BasicLoader, SelectLocationTop, MapPointer, SelectLocationBottom } from '../components'
 import { color } from '../helper';
 import AppContext from '../context'
 
 
-const SelectLocationBottom = ({ mapRef }) => {
-
-
-  return (
-    <View style={styles.bottomContent}>
-      <BasicButton
-        onPress={() => { }}
-        orange
-        style={{ height: 50, flex: 1, marginLeft: 5 }}
-        textStyle={{ fontWeight: 'bold' }}
-      >Tamam</BasicButton>
-      <MapButtons buttonStyle={{ height: 50 }} hideMinus hidePlus mapRef={mapRef} />
-    </View>
-  )
-}
-
-
+let regionTimer;
 const SelectLocation = (props) => {
 
   const { navigation } = props
-  const { currentCoord } = useContext(AppContext)
+  const { currentCoord, selectCoord, setSelectCoord } = useContext(AppContext)
   const selectMap = useRef(null);
 
-  if (!currentCoord) return <BasicLoader />
+  const onRegionChange = (region) => {
 
+    regionTimer && clearTimeout(regionTimer)
+    regionTimer = setTimeout(() => {
+
+      setSelectCoord(region)
+      console.log("onRegionChange :", region);
+
+    }, 500)
+  }
+
+  if (!selectCoord) return <BasicLoader />
+  console.log("Select Location selectCoord : ", selectCoord);
   return (
     <>
-      <SelectLocationTop navigation={navigation} />
+      <SelectLocationTop navigation={navigation} currentCoord={currentCoord} />
+      <MapPointer />
       <MapView
         ref={selectMap}
         style={styles.selectMap}
+        initialRegion={selectCoord}
+        region={selectCoord}
         showsUserLocation
-        initialRegion={currentCoord}
+        onRegionChange={onRegionChange}
       />
       <SelectLocationBottom mapRef={selectMap} />
     </>
@@ -47,17 +45,6 @@ const SelectLocation = (props) => {
 const styles = StyleSheet.create({
   selectMap: {
     flex: 1,
-  },
-  bottomContent: {
-    position: 'absolute',
-    width: '100%',
-    height: 70,
-    bottom: 0,
-    backgroundColor: color.white,
-    zIndex: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   }
 });
 export default SelectLocation;

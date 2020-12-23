@@ -11,7 +11,7 @@ import database from '@react-native-firebase/database';
 const Home = (props) => {
 
   const { navigation } = props
-  const { currentCoord } = useContext(AppContext)
+  const { currentCoord, selectCoord } = useContext(AppContext)
   const [taxiLocation, setTaxiLocation] = useState([])
 
 
@@ -33,7 +33,8 @@ const Home = (props) => {
 
   }, [])
 
-  console.log("RealTime Taxi Location", taxiLocation);
+  // console.log("RealTime Taxi Location", taxiLocation);
+  console.log("COORD : ", selectCoord.latitude);
   return (
     <>
       <TopButton navigation={navigation} />
@@ -74,4 +75,4 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
-export default Home;
+export default React.memo(Home);

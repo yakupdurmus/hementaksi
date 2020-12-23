@@ -6,11 +6,13 @@ import { BasicIcon } from './Basic/BasicIcon'
 
 import { BottomContent } from './BottomContent'
 import { MapButtons } from './MapButtons'
-import {TopButton} from './TopButton';
-import {SelectLocationTop} from './SelectLocationTop';
+import { TopButton } from './TopButton';
+import { SelectLocationTop } from './SelectLocationTop';
+import { SelectLocationBottom } from './SelectLocationBottom';
+import { MapPointer } from './MapPointer';
 
 export {
     BasicText, BasicButton, BasicInput, BasicLoader, BasicIcon,
-    BottomContent, MapButtons,TopButton,SelectLocationTop
+    BottomContent, MapButtons, TopButton, SelectLocationTop,SelectLocationBottom, MapPointer
 
 };

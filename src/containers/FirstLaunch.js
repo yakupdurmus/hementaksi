@@ -8,7 +8,7 @@ import AppContext from '../context'
 let timer
 const FirstLaunch = (props) => {
 
-  const { setCurrentCoord, setNextCoord } = useContext(AppContext)
+  const { setCurrentCoord, setSelectCoord, setSourceCoord } = useContext(AppContext)
   const { navigation } = props
 
   useEffect(() => {
@@ -19,14 +19,15 @@ const FirstLaunch = (props) => {
       timer = setTimeout(() => {
 
         const region = {
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
+          latitudeDelta: 0.0074150770677476885,
+          longitudeDelta: 0.004999999999967031,
           ...coords,
         }
 
-        
+
         setCurrentCoord(region)
-        setNextCoord(region)
+        setSelectCoord(region)
+        setSourceCoord(region)
         navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }],
