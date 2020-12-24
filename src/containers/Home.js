@@ -1,7 +1,7 @@
 import React, { useRef, useContext, useState, useEffect } from 'react';
 import MapView, { Region, Marker } from 'react-native-maps';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { BasicButton, BasicLoader, BottomContent, TopButton } from '../components'
+import { BasicButton, BasicLoader, BottomContent, HomeTop } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
 import AppContext from '../context'
 import database from '@react-native-firebase/database';
@@ -37,7 +37,7 @@ const Home = (props) => {
   console.log("COORD : ", selectCoord.latitude);
   return (
     <>
-      <TopButton navigation={navigation} />
+      <HomeTop navigation={navigation} />
       <MapView
         ref={map}
         style={styles.map}
