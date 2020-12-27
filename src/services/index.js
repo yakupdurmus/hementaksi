@@ -10,7 +10,7 @@ const axiosMapsApi = request.create({
     baseURL: googleMapsUrl,
     timeout: 1000,
     params: {
-        'key': 'AIzaSyD25LmUhBxxgV50Y5yG2kYNMxXRhuYKcF4',
+        'key': 'AIzaSyBPTkiUWP4MmJ8vw_D2Lcm4sRfJqJjA8AE', //hemen taksi general apis
         // 'radius': 5000,
         'types': 'establishment'
     }

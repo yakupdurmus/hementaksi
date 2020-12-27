@@ -4,7 +4,7 @@ import { BasicInput } from './Basic/BasicInput'
 import { BasicLoader } from './Basic/BasicLoader'
 import { BasicIcon } from './Basic/BasicIcon'
 
-import { BottomContent } from './BottomContent'
+import { HomeBottom } from './HomeBottom'
 import { MapButtons } from './MapButtons'
 import { HomeTop } from './HomeTop';
 import { SelectLocationTop } from './SelectLocationTop';
@@ -13,6 +13,6 @@ import { MapPointer } from './MapPointer';
 
 export {
     BasicText, BasicButton, BasicInput, BasicLoader, BasicIcon,
-    BottomContent, MapButtons, HomeTop, SelectLocationTop,SelectLocationBottom, MapPointer
+    MapButtons, HomeTop, SelectLocationTop,SelectLocationBottom, MapPointer,HomeBottom
 
 };

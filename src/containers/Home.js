@@ -1,17 +1,17 @@
 import React, { useRef, useContext, useState, useEffect } from 'react';
 import MapView, { Region, Marker } from 'react-native-maps';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { BasicButton, BasicLoader, BottomContent, HomeTop } from '../components'
+import { StyleSheet } from 'react-native';
+import { BasicLoader, HomeBottom, HomeTop, MapPointer } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
 import AppContext from '../context'
 import database from '@react-native-firebase/database';
 
 
-
+let regionTimer;
 const Home = (props) => {
 
   const { navigation } = props
-  const { currentCoord, selectCoord } = useContext(AppContext)
+  const { currentCoord, selectCoord, sourceCoord, setSourceCoord } = useContext(AppContext)
   const [taxiLocation, setTaxiLocation] = useState([])
 
 
@@ -33,18 +33,29 @@ const Home = (props) => {
 
   }, [])
 
-  // console.log("RealTime Taxi Location", taxiLocation);
-  console.log("COORD : ", selectCoord.latitude);
+  const onRegionChange = (region) => {
+
+    regionTimer && clearTimeout(regionTimer)
+    regionTimer = setTimeout(() => {
+
+      setSourceCoord(region)
+      console.log("onRegionChange :", region,region.latitude);
+
+    }, 500)
+  }
+
   return (
     <>
       <HomeTop navigation={navigation} />
+      <MapPointer />
       <MapView
         ref={map}
         style={styles.map}
         showsUserLocation
-        initialRegion={currentCoord}
+        initialRegion={sourceCoord}
+        region={sourceCoord}
+        onRegionChange={onRegionChange}
       // provider={PROVIDER_GOOGLE}
-      // onRegionChange={onRegionChange}
       >
         {taxiLocation.map(item => {
 
@@ -63,9 +74,9 @@ const Home = (props) => {
       </MapView>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={[280, 280, 100]}
+        snapPoints={[275, 275, 100]}
         borderRadius={10}
-        renderContent={() => <BottomContent navigation={navigation} mapRef={map} />}
+        renderContent={() => <HomeBottom navigation={navigation} mapRef={map} />}
       />
     </>
   );

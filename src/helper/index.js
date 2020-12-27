@@ -320,3 +320,46 @@ export const mockSearchData = [
     { text: "Safit Alışveriş merkezi" },
     { text: "Kanyon Alışveriş merkezi" },
 ]
+
+export const homeButtons = [
+    [
+        {
+            key: "callType",
+            id: 0,
+            image: require('../assets/taxi-256x256.png'),
+            label: "Taksi Çağır"
+        },
+        {
+            key: "callType",
+            id: 1,
+            image: require('../assets/station-256x256.png'),
+            label: "Duraktan Taksi Çağır"
+        },
+        {
+            key: "callType",
+            id: 2,
+            image: require('../assets/pintaxi-256x256.png'),
+            label: "Fark Etmez"
+        },
+    ],
+    [
+        {
+            key: "driverType",
+            id: 0,
+            image: require('../assets/male-256x256.png'),
+            label: "Erkek Sürücü"
+        },
+        {
+            key: "driverType",
+            id: 1,
+            image: require('../assets/female-256x256.png'),
+            label: "Kadın Sürücü"
+        },
+        {
+            key: "driverType",
+            id: 2,
+            image: require('../assets/pintaxi-256x256.png'),
+            label: "Fark Etmez"
+        }
+    ]
+]

@@ -1,58 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'react-native';
-import { color } from '../helper';
-import { BasicInput } from './Basic/BasicInput';
-import { BasicIcon, BasicButton, BasicText, BasicLoader, MapButtons } from './index'
+import { color, homeButtons } from '../../helper';
+import { BasicIcon, BasicButton, BasicText, MapButtons } from '../index'
+import DestinationButton from './DestinationButton'
+import SourceButton from './SourceButton'
 
-export const BottomContent = ({ mapRef, navigation }) => {
+export const HomeBottom = ({ mapRef, navigation }) => {
 
     const [selection, setSelection] = useState({
         callType: 2,
         driverType: 2
     })
 
-    const buttons = [
-        [
-            {
-                key: "callType",
-                id: 0,
-                image: require('../assets/taxi-256x256.png'),
-                label: "Taksi Çağır"
-            },
-            {
-                key: "callType",
-                id: 1,
-                image: require('../assets/station-256x256.png'),
-                label: "Duraktan Taksi Çağır"
-            },
-            {
-                key: "callType",
-                id: 2,
-                image: require('../assets/pintaxi-256x256.png'),
-                label: "Fark Etmez"
-            },
-        ],
-        [
-            {
-                key: "driverType",
-                id: 0,
-                image: require('../assets/male-256x256.png'),
-                label: "Erkek Sürücü"
-            },
-            {
-                key: "driverType",
-                id: 1,
-                image: require('../assets/female-256x256.png'),
-                label: "Kadın Sürücü"
-            },
-            {
-                key: "driverType",
-                id: 2,
-                image: require('../assets/pintaxi-256x256.png'),
-                label: "Fark Etmez"
-            }
-        ]
-    ]
+
     const onPressButton = (key, id) => {
         selection[key] = id
         setSelection({ ...selection })
@@ -62,26 +22,23 @@ export const BottomContent = ({ mapRef, navigation }) => {
 
     }
 
-    const onPressSearch = () => {
-        navigation.navigate('SelectLocation');
+    const onPressSearch = (type) => {
+        // type  => source|destination
+        navigation.navigate('SelectLocation', type);
     }
 
 
     const activeStyle = { borderWidth: 1, borderColor: color.border2 }
     return (
         <SafeAreaView style={styles.container}>
-
-            <TouchableOpacity
-                onPress={onPressSearch}
-                activeOpacity={.75}
-                style={styles.searchInput}>
-                <BasicIcon type="EvilIcons" name="search" />
-                <BasicText style={{ color: color.placeholder }}>Nereye Gitmek İstiyorsun ?</BasicText>
-            </TouchableOpacity>
+            <View style={{ height: 5 }} />
+            <SourceButton onPressSearch={onPressSearch} />
+            <DestinationButton onPressSearch={onPressSearch} />
+            <View style={{ height: 5 }} />
 
             <View style={styles.content} >
                 <View style={{ flex: 1 }}>
-                    {buttons.map((rowItem, rowIndex) => (
+                    {homeButtons.map((rowItem, rowIndex) => (
                         <View key={"row-" + rowIndex} style={styles.row}>
                             {rowItem.map((item, index) => (
                                 <TouchableOpacity
@@ -105,7 +62,7 @@ export const BottomContent = ({ mapRef, navigation }) => {
             <BasicButton
                 onPress={onPressGetTaxi}
                 orange
-                style={{ height: 50 }}
+                style={{ height: 42 }}
                 textStyle={{ fontWeight: 'bold' }}
             >Hemen Taksi Gönder</BasicButton>
 
@@ -116,23 +73,14 @@ export const BottomContent = ({ mapRef, navigation }) => {
 const styles = StyleSheet.create({
 
     container: {
-        height: 280,
+        height: 275,
         backgroundColor: '#fff'
     },
-    searchInput: {
-        marginHorizontal: 30,
-        borderBottomWidth: 1,
-        borderColor: color.placeholder,
-        paddingVertical: 5,
-        height: 40,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-
     content: {
         backgroundColor: 'white',
         flexDirection: 'row',
-        padding: 16,
+        padding: 10,
+        paddingVertical: 0
     },
     row: {
         flex: 1,
