@@ -8,6 +8,7 @@ import database from '@react-native-firebase/database';
 import { getDirections } from '../services';
 import MapViewDirections from 'react-native-maps-directions';
 import { apiKey, language } from '../services/config';
+import mapStyle from '../assets/mapStyle.json'
 
 
 let regionTimer;
@@ -94,6 +95,7 @@ const Home = (props) => {
         rotateEnabled={false}
         pitchEnabled={false}
         toolbarEnabled={false}
+        customMapStyle={mapStyle}
       >
         {taxiLocation.map(item => {
 

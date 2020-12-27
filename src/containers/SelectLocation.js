@@ -1,9 +1,11 @@
 import React, { useRef, useContext } from 'react';
-import MapView, { Region } from 'react-native-maps';
+import MapView, { Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 import { BasicLoader, SelectLocationTop, MapPointer, SelectLocationBottom } from '../components'
 import { color } from '../helper';
 import AppContext from '../context'
+import mapStyle from '../assets/mapStyle.json'
+
 
 
 let regionTimer;
@@ -37,6 +39,13 @@ const SelectLocation = (props) => {
         region={selectCoord}
         showsUserLocation
         onRegionChange={onRegionChange}
+        provider={PROVIDER_GOOGLE}
+        liteMode={true}
+        rotateEnabled={false}
+        pitchEnabled={false}
+        toolbarEnabled={false}
+        customMapStyle={mapStyle}
+
       />
       <SelectLocationBottom navigation={navigation} mapRef={selectMap} />
     </>
