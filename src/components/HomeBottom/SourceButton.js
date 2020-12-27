@@ -15,7 +15,6 @@ const SourceButton = ({ onPressSearch }) => {
             //Genellikle : Cadde + Sokak + No, Bazen : Sokak + No + Posta Kodu  
             const str = data.address_components[2]?.short_name + " " + data.address_components[1]?.short_name + " " + data.address_components[0]?.short_name
             setRegionText(str)
-            console.log("[*] Source Button, selectCoord, Location değiştiğinde ", str, data);
         })
     }, [sourceCoord])
 

@@ -1,18 +1,22 @@
 import React, { useRef, useContext, useState, useEffect } from 'react';
-import MapView, { Region, Marker } from 'react-native-maps';
+import MapView, { Region, Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 import { BasicLoader, HomeBottom, HomeTop, MapPointer } from '../components'
 import BottomSheet from 'reanimated-bottom-sheet';
 import AppContext from '../context'
 import database from '@react-native-firebase/database';
+import { getDirections } from '../services';
+import MapViewDirections from 'react-native-maps-directions';
+import { apiKey, language } from '../services/config';
 
 
 let regionTimer;
 const Home = (props) => {
 
   const { navigation } = props
-  const { currentCoord, selectCoord, sourceCoord, setSourceCoord } = useContext(AppContext)
+  const { currentCoord, selectCoord, sourceCoord, setSourceCoord, destinationCoord } = useContext(AppContext)
   const [taxiLocation, setTaxiLocation] = useState([])
+  const [rotateSteps, setRotateSteps] = useState([])
 
 
   //Kontrol
@@ -27,19 +31,49 @@ const Home = (props) => {
       .ref('/location')
       .on('value', values => {
         const val = values.val();
-        console.log('Firebase RealTime :', val)
-        if (val) setTaxiLocation(val)
+        console.log('[WR] Firebase RealTime :', val)
+        if (val) setTaxiLocation(val.slice(0, 10))
       });
 
   }, [])
 
+  useEffect(() => {
+
+    if (!sourceCoord?.latitude || !destinationCoord?.latitude) return
+
+    const source = `${sourceCoord.latitude},${sourceCoord.longitude}`
+    const destination = `${destinationCoord.latitude},${destinationCoord.longitude}`
+
+    getDirections(source, destination).then(data => {
+      console.log("Directions data: ", data);
+      let steps = [{
+        latitude: data.start_location.lat,
+        longitude: data.start_location.lng
+      }]
+
+      data.steps.map(item => {
+        steps.push({
+          latitude: item.end_location.lat,
+          longitude: item.end_location.lng,
+        })
+      })
+
+      setRotateSteps(steps)
+
+    })
+
+
+  }, [sourceCoord, destinationCoord])
+
   const onRegionChange = (region) => {
+
+    if (destinationCoord && destinationCoord?.latitude) return;
 
     regionTimer && clearTimeout(regionTimer)
     regionTimer = setTimeout(() => {
 
       setSourceCoord(region)
-      console.log("onRegionChange :", region,region.latitude);
+      console.log("onRegionChange :", region, region.latitude);
 
     }, 500)
   }
@@ -55,7 +89,11 @@ const Home = (props) => {
         initialRegion={sourceCoord}
         region={sourceCoord}
         onRegionChange={onRegionChange}
-      // provider={PROVIDER_GOOGLE}
+        provider={PROVIDER_GOOGLE}
+        liteMode={true}
+        rotateEnabled={false}
+        pitchEnabled={false}
+        toolbarEnabled={false}
       >
         {taxiLocation.map(item => {
 
@@ -71,6 +109,18 @@ const Home = (props) => {
           )
 
         })}
+
+        {destinationCoord && sourceCoord && sourceCoord?.latitude && destinationCoord.latitude && rotateSteps.length > 0 && (
+          <MapViewDirections
+            origin={sourceCoord}
+            destination={destinationCoord}
+            language={language}
+            apikey={apiKey}
+            strokeWidth={3}
+            strokeColor="hotpink"
+          />)}
+
+
       </MapView>
       <BottomSheet
         ref={sheetRef}

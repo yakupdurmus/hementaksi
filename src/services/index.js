@@ -1,6 +1,6 @@
 const request = require('axios');
 
-import { baseUrl, googleMapsUrl } from './config';
+import { baseUrl, googleMapsUrl,apiKey } from './config';
 
 const axios = request.create({
     baseURL: baseUrl,
@@ -10,7 +10,7 @@ const axiosMapsApi = request.create({
     baseURL: googleMapsUrl,
     timeout: 1000,
     params: {
-        'key': 'AIzaSyBPTkiUWP4MmJ8vw_D2Lcm4sRfJqJjA8AE', //hemen taksi general apis
+        'key': apiKey, //hemen taksi general apis
         // 'radius': 5000,
         'types': 'establishment'
     }
@@ -134,8 +134,31 @@ export const getGeocodeCordToAddress = async (lat, lng) => {
 
     try {
         const response = (await axiosMapsApi.get('geocode/json', config)).data
+        console.log("[WR] getGeocodeCordToAddress : ", response);
         if (response.results.length > 0) return response.results[0]
         else return null
+
+    } catch (err) {
+        console.log(err);
+        return errorResponse;
+    }
+
+}
+
+export const getDirections = async (source, destination) => {
+    //https://maps.googleapis.com/maps/api/?=Toronto&destination=Montreal&key=AIzaSyBPTkiUWP4MmJ8vw_D2Lcm4sRfJqJjA8AE
+
+    const config = {
+        params: {
+            origin: source,
+            destination: destination
+        }
+    }
+
+    try {
+        const response = (await axiosMapsApi.get('directions/json', config)).data
+        console.log("[WR] getDirections : ", response);
+        return response?.routes[0]?.legs[0]
 
     } catch (err) {
         console.log(err);

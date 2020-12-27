@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { BasicButton,MapButtons } from '../index'
-import {color} from '../../helper'
+import { BasicButton, MapButtons } from '../index'
+import { color } from '../../helper'
+import AppContext from '../../context'
 
-export const SelectLocationBottom = ({ mapRef }) => {
+export const SelectLocationBottom = ({ mapRef, navigation }) => {
+
+    const { selectCoord, setSelectCoord, currentCoord, setDestinationCoord } = useContext(AppContext)
+    const onPress = () => {
+
+        setDestinationCoord(selectCoord)
+        setSelectCoord(currentCoord)
+        navigation.goBack()
+    }
 
     return (
         <View style={styles.bottomContent}>
             <BasicButton
-                onPress={() => { }}
+                onPress={onPress}
                 orange
                 style={{ height: 50, flex: 1, marginLeft: 5 }}
                 textStyle={{ fontWeight: 'bold' }}

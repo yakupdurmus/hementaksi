@@ -38,7 +38,7 @@ const SelectLocation = (props) => {
         showsUserLocation
         onRegionChange={onRegionChange}
       />
-      <SelectLocationBottom mapRef={selectMap} />
+      <SelectLocationBottom navigation={navigation} mapRef={selectMap} />
     </>
   );
 };
